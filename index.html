@@ -37,8 +37,8 @@
   .ctrl input[type=range]{width:80px; accent-color:var(--azul);}
   #main{flex:1; display:flex; min-height:0;}
   #zonaCanvas{flex:1; position:relative; min-width:0; background:#05090d;}
-  #cv{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab;}
-  #cv.colocando{cursor:crosshair;}
+  #cv{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:crosshair;}
+  #cv.paneando{cursor:grabbing;}
   #aviso{
     position:absolute; top:10px; left:50%; transform:translateX(-50%);
     background:var(--azul2); color:#fff; padding:7px 16px; border-radius:20px;
@@ -84,6 +84,10 @@
   .fila-inline input[type=number]{
     width:64px; background:var(--fondo); color:var(--texto); border:1px solid var(--borde);
     border-radius:6px; padding:4px 6px; font-size:13px; text-align:right;
+  }
+  .fila-inline input[type=text]{
+    background:var(--fondo); color:var(--texto); border:1px solid var(--borde);
+    border-radius:6px; padding:4px 6px; font-size:13px;
   }
   .fila-inline select{
     background:var(--fondo); color:var(--texto); border:1px solid var(--borde);
@@ -239,10 +243,31 @@
         <label id="lblResTib">Resección desde platillo sano</label>
         <input type="number" id="resTib" value="8" min="0" step="0.5"> mm
       </div>
+      <div class="fila-inline">
+        <label>Componente femoral</label>
+        <input type="number" id="grosorFem" value="9" min="0" step="0.5"> mm
+      </div>
+      <div class="fila-inline">
+        <label>Bandeja tibial</label>
+        <input type="number" id="grosorTray" value="3" min="0" step="0.5"> mm
+      </div>
+      <div class="fila-inline">
+        <label>Insertos disponibles (mm)</label>
+        <input type="text" id="insertos" value="9, 11, 13, 15, 17, 19" style="width:120px">
+      </div>
       <table class="medidas" id="tablaPTR"></table>
       <div class="fila-inline">
-        <label for="chkPTR">Mostrar cortes en la imagen</label>
+        <label for="chkPTR">Mostrar cortes y gap en la imagen</label>
         <input type="checkbox" id="chkPTR">
+      </div>
+      <div class="fila-inline">
+        <label for="chkSimPTR">Simular resección + alineación (gap alineado)</label>
+        <input type="checkbox" id="chkSimPTR">
+      </div>
+      <div class="fila-inline">
+        <label>Distracción (tensión)</label>
+        <input type="range" id="distraccion" min="0" max="15" step="0.5" value="0">
+        <span id="distraccionTxt" style="width:38px; text-align:right">0 mm</span>
       </div>
     </div>
    </div><!-- /modoRodilla -->
@@ -356,6 +381,11 @@ const state = {
   resFem: 9,            // mm de resección femoral distal (PTR)
   resTib: 8,            // mm de resección tibial desde la referencia (PTR)
   refTib: 'sano',       // 'sano' (platillo alto) o 'desgastado' (platillo bajo)
+  grosorFem: 9,         // grosor distal del componente femoral (mm)
+  grosorTray: 3,        // grosor de la bandeja tibial (mm)
+  insertos: '9, 11, 13, 15, 17, 19',   // medidas comerciales de inserto disponibles (mm)
+  simularPTR: false,    // resecar fragmentos + enderezar + medir gap alineado
+  distraccion: 0,       // mm de distracción del gap (tensión ligamentaria)
   mostrarPTR: false,
   // Cadera (prótesis total, PTC)
   copaIncl: 40,         // inclinación objetivo de la copa (°)
@@ -459,6 +489,11 @@ function rotar(P, C, rad){
 }
 // Distancia perpendicular de P a la recta AB
 function distRecta(P, A, B){ return Math.abs(cruz(sub(B,A), sub(P,A)))/dist(A,B); }
+// Parámetro t tal que Pcol + t·u cae sobre la recta que pasa por P0 con dirección d.
+function interseccionT(Pcol, u, P0, d){
+  const den = cruz(u, d);
+  return Math.abs(den) < 1e-9 ? null : cruz(sub(P0, Pcol), d) / den;
+}
 
 // ---------- Cálculo de mediciones ----------
 function medidas(){
@@ -611,6 +646,46 @@ function medidas(){
       refLado: state.refTib === 'desgastado' ? (refAlto === 'medial' ? 'lateral' : 'medial') : refAlto,
     };
   }
+  // Gap de extensión: brecha entre el corte femoral y el tibial en cada columna,
+  // medida a lo largo del eje mecánico tibial. La llena el implante (componente
+  // femoral + bandeja + inserto). Inserto estimado ≈ gap − componente − bandeja.
+  if (m.corteFem && m.corteTib && m.mmpp && K && A && P.tibMed && P.tibLat){
+    const u = norm(sub(A, K));
+    const gapCol = (Pcol) => {
+      const tF = interseccionT(Pcol, u, m.corteFem.punto, m.corteFem.dir);
+      const tT = interseccionT(Pcol, u, m.corteTib.punto, m.corteTib.dir);
+      if (tF == null || tT == null) return null;
+      return {gap: Math.abs(tT - tF) * m.mmpp, pF: add(Pcol, mul(u, tF)), pT: add(Pcol, mul(u, tT))};
+    };
+    m.gapMed = gapCol(P.tibMed);
+    m.gapLat = gapCol(P.tibLat);
+    const desc = state.grosorFem + state.grosorTray;
+    if (m.gapMed) m.gapMed.poly = m.gapMed.gap - desc;
+    if (m.gapLat) m.gapLat.poly = m.gapLat.gap - desc;
+
+    // Gap ALINEADO: se endereza la tibia (rotación sobre K que lleva el eje
+    // tibial a continuar recto el eje femoral) y se remide el gap ya alineado.
+    const dFem = norm(sub(K, H));                    // dirección del eje mecánico femoral
+    m.ptrRot = Math.atan2(cruz(u, dFem), dot(u, dFem));   // ángulo para enderezar
+    m.ptrK = K;
+    // distracción: aleja la tibia del fémur (distal) para simular tensión ligamentaria
+    m.ptrDist = mul(dFem, state.distraccion / m.mmpp);
+    m.tobilloAlin = add(rotar(A, K, m.ptrRot), m.ptrDist);
+    const rotP = p => add(rotar(p, K, m.ptrRot), m.ptrDist);
+    const ctP = rotP(m.corteTib.punto);
+    const ctDir = sub(rotP(add(m.corteTib.punto, m.corteTib.dir)), ctP);
+    const gapColSim = (Pcol0) => {
+      const Pcol = rotP(Pcol0);
+      const tF = interseccionT(Pcol, dFem, m.corteFem.punto, m.corteFem.dir);
+      const tT = interseccionT(Pcol, dFem, ctP, ctDir);
+      if (tF == null || tT == null) return null;
+      return {gap: Math.abs(tT - tF) * m.mmpp, pF: add(Pcol, mul(dFem, tF)), pT: add(Pcol, mul(dFem, tT))};
+    };
+    m.gapMedSim = gapColSim(P.tibMed);
+    m.gapLatSim = gapColSim(P.tibLat);
+    if (m.gapMedSim) m.gapMedSim.poly = m.gapMedSim.gap - desc;
+    if (m.gapLatSim) m.gapLatSim.poly = m.gapLatSim.gap - desc;
+  }
 
   // --- Prótesis total de cadera (AP de pelvis) ---
   m.cabezaC = (P.ccab1 && P.ccab2 && P.ccab3) ? circulo3(P.ccab1, P.ccab2, P.ccab3) : null;
@@ -743,12 +818,35 @@ function dibujar(){
   const f = state.filtro;
   const filtro = `brightness(${f.brillo}%) contrast(${f.contraste}%)` + (f.invertir?' invert(1)':'');
 
-  ctx.filter = filtro;
-  ctx.drawImage(state.img, 0, 0);
-  ctx.filter = 'none';
-
   const m = medidas();
   const P = state.pts;
+  const ptrSim = state.region==='rodilla' && state.simularPTR && m.corteFem && m.corteTib
+                 && m.cadera && m.rodilla && m.tobillo && m.ptrRot != null;
+
+  ctx.filter = filtro;
+  if (ptrSim){
+    const H = m.cadera, K = m.rodilla, A = m.tobillo;
+    const BIG = 6*Math.max(state.img.width, state.img.height);
+    const clipLado = (P0, dir, ladoRef)=>{                 // recorta al semiplano del lado de ladoRef
+      const d = norm(dir); let n = {x:-d.y, y:d.x};
+      if (dot(n, sub(ladoRef, P0)) < 0) n = mul(n, -1);
+      const p1 = add(P0, mul(d,-BIG)), p2 = add(P0, mul(d,BIG));
+      ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y);
+      ctx.lineTo(p2.x+n.x*BIG, p2.y+n.y*BIG); ctx.lineTo(p1.x+n.x*BIG, p1.y+n.y*BIG);
+      ctx.closePath(); ctx.clip();
+    };
+    // Fémur sin el fragmento distal (conserva lo proximal al corte femoral)
+    ctx.save(); clipLado(m.corteFem.punto, m.corteFem.dir, H); ctx.drawImage(state.img, 0, 0); ctx.restore();
+    // Tibia sin la meseta, enderezada (rota sobre K) y distraída (aleja del fémur)
+    ctx.save();
+    if (m.ptrDist) ctx.translate(m.ptrDist.x, m.ptrDist.y);
+    ctx.translate(K.x, K.y); ctx.rotate(m.ptrRot); ctx.translate(-K.x, -K.y);
+    clipLado(m.corteTib.punto, m.corteTib.dir, A); ctx.drawImage(state.img, 0, 0);
+    ctx.restore();
+  } else {
+    ctx.drawImage(state.img, 0, 0);
+  }
+  ctx.filter = 'none';
 
   // --- Simulación: fragmento distal rotado alrededor de la bisagra ---
   if (state.region==='rodilla' && state.simular && m.alfaRad && P.bisagra && P.entrada && m.tobillo){
@@ -986,8 +1084,8 @@ function dibujar(){
   }
   // Línea de carga corregida
   if (m.cadera && m.tobilloPost) lineaExt(m.cadera, m.tobilloPost, '--verde', true, 60);
-  // Cortes de PTR y eje anatómico femoral
-  if (state.mostrarPTR){
+  // Cortes de PTR y eje anatómico femoral (posición deformada)
+  if (state.mostrarPTR && !ptrSim){
     if (P.diaf1 && P.diaf2) linea(P.diaf1, P.diaf2, '--lila', true);
     const dibCorte = (cd, pMed, pLat)=>{
       if (!cd) return;
@@ -1000,6 +1098,40 @@ function dibujar(){
     };
     dibCorte(m.corteFem, P.femMed, P.femLat);
     dibCorte(m.corteTib, P.tibMed, P.tibLat);
+    // Gap de extensión entre ambos cortes (relleno + medida por columna)
+    if (m.gapMed && m.gapLat){
+      ctx.fillStyle = 'rgba(62,207,142,.20)';
+      ctx.beginPath();
+      ctx.moveTo(m.gapMed.pT.x, m.gapMed.pT.y);
+      ctx.lineTo(m.gapMed.pF.x, m.gapMed.pF.y);
+      ctx.lineTo(m.gapLat.pF.x, m.gapLat.pF.y);
+      ctx.lineTo(m.gapLat.pT.x, m.gapLat.pT.y);
+      ctx.closePath(); ctx.fill();
+      linea(m.gapMed.pT, m.gapMed.pF, '--verde');
+      linea(m.gapLat.pT, m.gapLat.pF, '--verde');
+      ctx.fillStyle = css('--verde');
+      ctx.fillText('gap '+m.gapMed.gap.toFixed(1), m.gapMed.pT.x - 52/s, mid(m.gapMed.pT, m.gapMed.pF).y);
+      ctx.fillText('gap '+m.gapLat.gap.toFixed(1), m.gapLat.pT.x + 8/s, mid(m.gapLat.pT, m.gapLat.pF).y);
+    }
+  }
+
+  // Simulación PTR: rodilla resecada y enderezada — cortes alineados + gap alineado
+  if (ptrSim && m.gapMedSim && m.gapLatSim){
+    lineaExt(m.cadera, m.tobilloAlin, '--cian', true, 40);   // eje mecánico enderezado
+    lineaExt(m.gapMedSim.pF, m.gapLatSim.pF, '--rojo', false, 22);   // corte femoral (fijo)
+    lineaExt(m.gapMedSim.pT, m.gapLatSim.pT, '--rojo', false, 22);   // corte tibial (enderezado)
+    ctx.fillStyle = 'rgba(62,207,142,.28)';
+    ctx.beginPath();
+    ctx.moveTo(m.gapMedSim.pT.x, m.gapMedSim.pT.y);
+    ctx.lineTo(m.gapMedSim.pF.x, m.gapMedSim.pF.y);
+    ctx.lineTo(m.gapLatSim.pF.x, m.gapLatSim.pF.y);
+    ctx.lineTo(m.gapLatSim.pT.x, m.gapLatSim.pT.y);
+    ctx.closePath(); ctx.fill();
+    linea(m.gapMedSim.pT, m.gapMedSim.pF, '--verde');
+    linea(m.gapLatSim.pT, m.gapLatSim.pF, '--verde');
+    ctx.fillStyle = css('--verde');
+    ctx.fillText('gap '+m.gapMedSim.gap.toFixed(1), m.gapMedSim.pT.x - 52/s, mid(m.gapMedSim.pT, m.gapMedSim.pF).y);
+    ctx.fillText('gap '+m.gapLatSim.gap.toFixed(1), m.gapLatSim.pT.x + 8/s, mid(m.gapLatSim.pT, m.gapLatSim.pF).y);
   }
 
   // Puntos individuales (solo los de la rodilla)
@@ -1137,14 +1269,35 @@ function refrescarPanel(){
     ${filaPost}`;
 
   // Tabla PTR
-  const cf = m.corteFem, ct = m.corteTib;
+  const cf = m.corteFem, ct = m.corteTib, gm = m.gapMed, gl = m.gapLat, gmS = m.gapMedSim, glS = m.gapLatSim;
+  const gapTxt = (gm && gl) ? fmt(gm.gap,1)+' / '+fmt(gl.gap,1)+' mm' : (m.mmpp?'—':'calibra');
+  const gapAlinTxt = (gmS && glS) ? fmt(gmS.gap,1)+' / '+fmt(glS.gap,1)+' mm' : (m.mmpp?'—':'calibra');
+  // Desbalance e inserto se toman del gap ALINEADO (el que aplica tras enderezar)
+  const desbal = (gmS && glS) ? Math.abs(gmS.gap - glS.gap) : null;
+  const polyEst = (gmS && glS) ? Math.min(gmS.poly, glS.poly) : null;
+  const polyTxt = polyEst != null ? fmt(polyEst,1,' mm') : '—';
+  // Redondeo a la medida comercial de inserto más cercana
+  const listaIns = state.insertos.split(/[,\s]+/).map(Number).filter(v=>!isNaN(v) && v>0).sort((a,b)=>a-b);
+  let insComTxt = '—';
+  if (polyEst != null && listaIns.length){
+    let best = listaIns[0];
+    for (const v of listaIns) if (Math.abs(v-polyEst) < Math.abs(best-polyEst)) best = v;
+    const d = best - polyEst;
+    insComTxt = best + ' mm' + (Math.abs(d) < 0.3 ? '' : ' (' + (d>0?'+':'−') + fmt(Math.abs(d),1) + ')');
+  }
   document.getElementById('tablaPTR').innerHTML = `
     <tr><td>Ángulo valgo <span class="nota">guía intramedular</span></td>
         <td class="${tono(m.valgoJig,4,8)}">${fmt(m.valgoJig,1,'°')}</td></tr>
     <tr><td>Corte femoral <span class="nota">medial / lateral</span></td>
         <td>${cf ? fmt(cf.med,1)+' / '+fmt(cf.lat,1)+' mm' : (m.mmpp?'—':'calibra')}</td></tr>
     <tr><td>Corte tibial <span class="nota">ref. ${ct?ct.refLado:'—'} · medial / lateral</span></td>
-        <td>${ct ? fmt(ct.med,1)+' / '+fmt(ct.lat,1)+' mm' : (m.mmpp?'—':'calibra')}</td></tr>`;
+        <td>${ct ? fmt(ct.med,1)+' / '+fmt(ct.lat,1)+' mm' : (m.mmpp?'—':'calibra')}</td></tr>
+    <tr><td>Gap sin alinear <span class="nota">medial / lateral</span></td><td>${gapTxt}</td></tr>
+    <tr><td>Gap ALINEADO <span class="nota">tras enderezar · med / lat</span></td><td>${gapAlinTxt}</td></tr>
+    <tr><td>Desbalance <span class="nota">alineado · medial − lateral</span></td>
+        <td class="${desbal==null?'':(desbal<=2?'valor-ok':'valor-alerta')}">${desbal!=null?fmt(desbal,1,' mm'):'—'}</td></tr>
+    <tr><td>Inserto estimado <span class="nota">gap alin. − componente − bandeja</span></td><td>${polyTxt}</td></tr>
+    <tr><td><b>Inserto comercial</b> <span class="nota">más cercano de la lista</span></td><td><b>${insComTxt}</b></td></tr>`;
   document.getElementById('lblResTib').textContent =
     'Resección desde platillo ' + (state.refTib === 'desgastado' ? 'desgastado' : 'sano');
 
@@ -1261,7 +1414,7 @@ cv.addEventListener('pointerdown', e=>{
     return;
   }
   state.arrastre = {tipo:'pan', x0:e.offsetX, y0:e.offsetY, tx0:state.vista.tx, ty0:state.vista.ty};
-  cv.style.cursor='grabbing';
+  cv.classList.add('paneando');   // manita solo mientras se desplaza
 });
 cv.addEventListener('pointermove', e=>{
   if (!state.arrastre) return;
@@ -1274,7 +1427,7 @@ cv.addEventListener('pointermove', e=>{
     refrescarPanel();
   }
 });
-cv.addEventListener('pointerup', ()=>{ state.arrastre=null; cv.style.cursor=state.colocando?'crosshair':'grab'; });
+cv.addEventListener('pointerup', ()=>{ state.arrastre=null; cv.classList.remove('paneando'); });
 cv.addEventListener('wheel', e=>{
   if (!state.img) return;
   e.preventDefault();
@@ -1353,7 +1506,16 @@ function aplicarTipoOst(t, conObjetivo){
 document.getElementById('tipoOst').onchange = e=>aplicarTipoOst(e.target.value, true);
 document.getElementById('resFem').oninput = e=>{ state.resFem = +e.target.value || 0; refrescarPanel(); };
 document.getElementById('resTib').oninput = e=>{ state.resTib = +e.target.value || 0; refrescarPanel(); };
+document.getElementById('grosorFem').oninput = e=>{ state.grosorFem = +e.target.value || 0; refrescarPanel(); };
+document.getElementById('grosorTray').oninput = e=>{ state.grosorTray = +e.target.value || 0; refrescarPanel(); };
+document.getElementById('insertos').oninput = e=>{ state.insertos = e.target.value; refrescarPanel(); };
 document.getElementById('chkPTR').onchange = e=>{ state.mostrarPTR = e.target.checked; dibujar(); };
+document.getElementById('chkSimPTR').onchange = e=>{ state.simularPTR = e.target.checked; refrescarPanel(); };
+document.getElementById('distraccion').oninput = e=>{
+  state.distraccion = +e.target.value || 0;
+  document.getElementById('distraccionTxt').textContent = state.distraccion + ' mm';
+  refrescarPanel();
+};
 document.getElementById('chkSim').onchange = e=>{ state.simular = e.target.checked; dibujar(); };
 document.getElementById('region').onchange = e=>aplicarRegion(e.target.value);
 document.getElementById('refTib').onchange = e=>{
@@ -1373,9 +1535,12 @@ document.getElementById('chkSimSlope').onchange = e=>{ state.simularSlope = e.ta
 document.getElementById('btnReiniciar').onclick = ()=>{
   if (!confirm('¿Borrar todos los puntos y la imagen?')) return;
   state.pts = {}; state.img = null; state.colocando = null;
-  state.simular = false; state.simularSlope = false;
+  state.simular = false; state.simularSlope = false; state.simularPTR = false; state.distraccion = 0;
   document.getElementById('chkSim').checked = false;
   document.getElementById('chkSimSlope').checked = false;
+  document.getElementById('chkSimPTR').checked = false;
+  document.getElementById('distraccion').value = 0;
+  document.getElementById('distraccionTxt').textContent = '0 mm';
   avisoColocacion(); ajustarVista(); refrescarPanel();
 };
 
@@ -1399,6 +1564,8 @@ document.getElementById('btnGuardar').onclick = ()=>{
     region: state.region, calibMM: state.calibMM, fuji: state.fuji, pts: state.pts,
     tipoOst: state.tipoOst, resFem: state.resFem, resTib: state.resTib,
     refTib: state.refTib, mostrarPTR: state.mostrarPTR,
+    grosorFem: state.grosorFem, grosorTray: state.grosorTray, distraccion: state.distraccion,
+    insertos: state.insertos,
     copaIncl: state.copaIncl, copaMM: state.copaMM, cuelloMM: state.cuelloMM,
     ladoCadera: state.ladoCadera, mostrarPTC: state.mostrarPTC, slopeObjetivo: state.slopeObjetivo,
     notas: document.getElementById('notas').value,
@@ -1416,6 +1583,9 @@ document.getElementById('archivoPlan').onchange = e=>{
       state.calibMM = p.calibMM ?? 25; state.pts = p.pts || {};
       state.resFem = p.resFem ?? 9; state.resTib = p.resTib ?? 8;
       state.refTib = p.refTib ?? 'sano';
+      state.grosorFem = p.grosorFem ?? 9; state.grosorTray = p.grosorTray ?? 3;
+      state.distraccion = p.distraccion ?? 0;
+      state.insertos = p.insertos ?? '9, 11, 13, 15, 17, 19';
       state.mostrarPTR = p.mostrarPTR ?? false;
       state.copaIncl = p.copaIncl ?? 40; state.copaMM = p.copaMM ?? 52;
       state.cuelloMM = p.cuelloMM ?? 15; state.mostrarPTC = p.mostrarPTC ?? false;
@@ -1427,6 +1597,11 @@ document.getElementById('archivoPlan').onchange = e=>{
       document.getElementById('resFem').value = state.resFem;
       document.getElementById('resTib').value = state.resTib;
       document.getElementById('refTib').value = state.refTib;
+      document.getElementById('grosorFem').value = state.grosorFem;
+      document.getElementById('grosorTray').value = state.grosorTray;
+      document.getElementById('distraccion').value = state.distraccion;
+      document.getElementById('distraccionTxt').textContent = state.distraccion + ' mm';
+      document.getElementById('insertos').value = state.insertos;
       document.getElementById('chkPTR').checked = state.mostrarPTR;
       document.getElementById('copaIncl').value = state.copaIncl;
       document.getElementById('copaMM').value = state.copaMM;
@@ -1530,6 +1705,17 @@ document.getElementById('btnExportar').onclick = ()=>{
       linea(`Ángulo valgo (guía IM): ${F(m.valgoJig,1,'°')}`);
       if (m.corteFem) linea(`Corte femoral: med ${F(m.corteFem.med,1)} / lat ${F(m.corteFem.lat,1)} mm`);
       if (m.corteTib) linea(`Corte tibial (ref. ${m.corteTib.refLado}): med ${F(m.corteTib.med,1)} / lat ${F(m.corteTib.lat,1)} mm`);
+      if (m.gapMed && m.gapLat) linea(`Gap sin alinear: med ${F(m.gapMed.gap,1)} / lat ${F(m.gapLat.gap,1)} mm`);
+      if (m.gapMedSim && m.gapLatSim){
+        linea(`Gap alineado${state.distraccion?' (distracción '+state.distraccion+' mm)':''}: med ${F(m.gapMedSim.gap,1)} / lat ${F(m.gapLatSim.gap,1)} mm`);
+        const polyE = Math.min(m.gapMedSim.poly, m.gapLatSim.poly);
+        linea(`Inserto estimado: ${F(polyE,1,' mm')} (comp. ${state.grosorFem} + bandeja ${state.grosorTray})`);
+        const lstI = state.insertos.split(/[,\s]+/).map(Number).filter(v=>!isNaN(v)&&v>0);
+        if (lstI.length){
+          let bI = lstI[0]; for (const v of lstI) if (Math.abs(v-polyE)<Math.abs(bI-polyE)) bI=v;
+          linea(`Inserto comercial: ${bI} mm`, '#3ecf8e', true);
+        }
+      }
     }
   }
   y += fs*0.6;
