@@ -2,8 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>OrthoMed — Planeación quirúrgica ortopédica</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxYzFjMWUiPjwvcmVjdD48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5LjYsOS42KSBzY2FsZSgwLjcpIj48ZyBmaWxsPSIjZjdmNWYyIj48cmVjdCB4PSIyNSIgeT0iNCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE4IiByeD0iNyI+PC9yZWN0PjxyZWN0IHg9IjIyLjUiIHk9IjE1IiB3aWR0aD0iMTkiIGhlaWdodD0iMTEuNSI+PC9yZWN0PjxjaXJjbGUgY3g9IjIyLjUiIGN5PSIyNi41IiByPSI4LjUiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjQxLjUiIGN5PSIyNi41IiByPSI4LjUiPjwvY2lyY2xlPjxyZWN0IHg9IjEzIiB5PSI0MCIgd2lkdGg9IjM4IiBoZWlnaHQ9IjkiIHJ4PSI0LjUiPjwvcmVjdD48cmVjdCB4PSIyNSIgeT0iNDQiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNiIgcng9IjciPjwvcmVjdD48L2c+PHJlY3QgeD0iMTkiIHk9IjM2LjIiIHdpZHRoPSIyNiIgaGVpZ2h0PSIzIiByeD0iMS41IiBmaWxsPSIjZTg1OTBjIj48L3JlY3Q+PC9nPjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAQAElEQVR4AeydCZAU5RXHXw/LgoRErkRYZhc54oFGUaxUyuKQIEFEEIEClqCRRDEci0YiyuUNBgygLIIglmWCIMgupEyJCMjhEZGzTErFYALsLgsoh6XxYI/O9++dWefY7unu6e7pb/pt9Ud3f99773vv/361zM7OzIYow1/t2nW4ND8/v7B9+/zH2rfvsDocLnhHjE/FOBMO51eJs8qjwEcaaD0RvSlAj95Bz9A79BC9zDBO5DnQF4ovUfx4AWuJAPWzRo3UD1VVWaUoykxFUUcJQa4Vo5MYLYiUHOIvnymg9UT0htCja9Ez9A49RC/RU/QWPRatvtDr5D0BWhTWIhzuMCkcLthZXV37X1H8EiJlKBG1EYOP7FJA9FQZih6j1+h5WPQeDHhRpqtAt29/YbdwuGCZKOwUkVosCuopBh/BUkD0XC0GA2ABTLhZvitAi8dSV+OxlaLU7hfJjxPDlX1EXD7kUQAMjAMTYAOMuJE6NnEsbl5eXhuR7DPisdReRdEeDzsWmwOlq4B//MEGGAErYMbJzBwDWvx3cmcolPOJSHaCkwlyrOxVAKyAGbDjVJVpA33BBZ1/kp9fsEYktFyMlmLwwQpYUQDMLAdDYMmKY0O2aQEtnprp37hx1V5VpRENBec5VsCsAmAILIEpsz4N2dkGOiyeilFV5XURNCwGH6yAEwqEwRTYshvMFtD5+R1mR56Gs7sv+7ECBgqoxXWMGZjoLFkGOhwuWKSq6nSdeFJOc9L+UwCMgTWrmVkCOrJBkdVN2J4VsKlAUYQ50+6mgY78F8Awm5aWDR1SoCjCnqlwpoAOaz8A8sMMU4qykeMK1D386DDJTOCUQNc9jaK9DsNMPLZhBVxSAD8o5vdPFdwQaDzRLZ5GWZEqCK+zAl4oABbBpNFehkDn5lbhFXL8PLORgrzmpQLh3FyNSd09dYEOhwvuVPk3gLrC8UJmFACTYFNv9waBjrwCaq6eE8+zAhlWYG6E0aQ0GgRaURo/IizxohFx4oMV8J0CLSOMJiWWBDReeI2X9SVZ8gQr4CMFwChYTUwpCehQiO5LNOL7ACggYYkNsRoHNN7vJcjHO68lLI9TDpoCYBXMxtYdB7Si1I6PXeRrVsDvCiQyWw905G3md/i9AM6PFUhQ4I4Iu9p0PdDV1eoYMVN/L675YAVkUCAUYVfLNQZgld9GpUnC/8inwPfsakCLb9n4yKae8hXiSca8if8V6BlhmDSga2pqBvg/Z86QFdBXIMqwBrT4/fj1+qa8wgr4X4EowxrQREov4i9WQGoF6hgOiV8fXirqaCMGH6yAzAq0AcuhnJzabjJXwbmzAlEFwHKotpa6Ricsn9mBFfCRAmBZPIYOdfFRTpwKK5CGAqEuIUVRC9KIwK6sgG8UAMviOzS19U1GnAgrkJ4CbQF0q/RisDcr4BsFWgmg1ea+SYcT8a0CciSmNhdAa3+mS458JcwyHG5PV/zscm3gWsISJEpZyRFAS5SvJKkOHTqEli97hj44sIe2bd1EJete1gauMYc12EhSjlRpMtAOtmv4sFtox7bNNPeJx6nPdb3pvPOaJkXHHNZgA1v4JBnxhG0FGGjb0sU7PjnvCXpizmOUl9cufsHgDrbwga+BGS9ZUICBtiCWnukLzy+nITcP0ltOOQ9fxEhpyAYpFWCgU0pkbLBg/jzq0eNaYyMTq4ixYP48E5ZsYqQAA22kToq10YUjadBNN6awMr+MWIhp3oMtExVgoBMVMXmfm5tLd0829RncJiPWmSEmYtfd8b9WFWCgrSoWsR85Yji1auX8x/8hJmJHtuGTRQUYaIuCRc1vHJDyw+SjppbPbsa2nIxkDgy0jYad17QpXXNNdxue5lwQG3uYs2arWAVcBTp2o2y67tKls+vleLGH60VkYAMG2oborVu3tuFlzcWLPaxlJIc1A22jT40aNbLhZc3Fiz2sZSSHNQMtR584S5MKMNAmhWIzORRgoOXok9+z9E1+DLRvWsGJOKEAA+2EihzDNwow0L5pBSfihAIMtAkVlz27mHZs31w/5sx+1IRXeibYI3ZP5JBexGB4M9Am+5zXrh1FB15AZNLNthn2iO6Hs+1AAXNkoN1uOMf3VAEG2lO5eTO3FWCg3VaY43uqAAPdgNz5+WG6aeCNNLloAj3y8Cy65JKLG7Dydgo5IBfkhNyQo7cZyLEbAx3pU9OmTWjs7bfRhtK19OaW12nhgnlUNGkC4T1+fvihDDkgF+SE3JAjckXOTZs0iVTBJwZaMHDrmNG0c8dWmj5tKl12WVcxI8eBXJEzckcNcmTtbpaZBNrdykxEb9GiBT27tJgenDWdWoprEy6+NGnZsoVWA2pBTb5M0qOkAgt0hw4FtHrVi9T3l308ktr9bVALakJt7u/mzx0CCXTLli1p2dLF1KWz+2+l8rrtqAm1oUav9/bDfoEEGh+U2LlzJz/o70oOqA01uhLc50EDB/RvbhtDffr09nlb0k8PNaLW9CPJFSFQQP+gWTPx3PJEuTqURraTiyYSak4jhEOu3oUJFNCFhSPpRz/6oXfqZngn1Fo4emSGs/B2+0ABjY+t9VbezO82ZPCgzCfhYQaBAbpTp4508cUXeSitP7ZCzajdH9m4n0VggO525RXuq+nTHYJUe2CA7tSxo09xcz+tINUeGKBbt3H/47vsoOmFT5BqDwzQjRs39oKdpD2eXrSYJt99rzZwnWTgwUSmavegtKQtAgP0119/nVS8FxPbtu+kja+/oQ1ce7Fn4h6Zqj0xDy/uAwP08ePHvdAzaY/YfWOvkwxdnMjUvi6WpBs6MEAf/OTfuiK4tXDy5Ek6dep0fXhcY65+wqOLTNTuUWlJ2wQG6L179iUV7/bEe7veT9qiobkkI4cnMlG7wyWYDudjoE3XYMrw7Bdf0HbxeNaUsUNGW7a8mRSpobkkIwcnUDNqdzCkr0MFBmh0YV3pepw8GRUVx7QfBBM3ww+IWEucd+vey5rdqsFK3EABvWnTZtq3/4AVfWzbrnj+BV1fozVdJxsLqBU123CV1iVQQKNLC58qxsnVsWfPXlr50mrdPbAGG10Dhxa8qNWhVB0LEzig33tvFy0qfsYxARMDnauqoocfnZ04nXQPG9gmLTg0gRpRq0PhpAkTOKDRmeLFS2ntKyW4dHzcc88f6eDBT1LGhQ1sUxraMEBtqNGGa2ZcHNw1kEBDvxkzHzJ8WAAbK6OqupomTLqbNm/ZatoNtvCBr2mnFIZ4OIPaUphl7XJggUZHHxEPDR59bA6pqopb22Pfvv00bNhI2rzZPMzRzeADX8SIztk5owbUgprs+GeLT6CBRhP/unIV9fvVQCop3YBbS+P4iRP0+Ow/0cjCW+mjjw9a8o01hi9iIBZixq6ZuUbuqAG1mLHPZpvAA43mHjl6lB6YNpP6Xj+AFj61iPYbPLV35sxZ2rhxE907ZSr17NWXXvzLSoRwZCAWYiI29sBeeoGRI3JFzsj9iKhBzzZI8wx0TLePlpXRkqXLacSoMXRJ1ytpwMCbacxtY2nsb8dpc72uu55+/oseNPmeKfTq31+L8XT2ErGxB/bCnsgHOSAX5ITcMIdckbOzu8sdjYHW6V9NTQ0dOvQp7dq1m95+513tu3Zlpeev2CPsie/GyAG5ICfkppN24KcZ6AQEerc+RzN++j968CJ/D+SIXBPSD/wtAx2DwJC239H8rl/RLeI8+ILvyM8DOSJX5BxTQuAvGegYBEbkfRtzJ8eljDm7qSwDHaOujGLImHOM5I5fsh4xkpZUNo25k+NSxpzdVFZeoF1Q5ZXKJjTj4+a08WQuvfGZvwdyRK7I2QUppA3JQCe0bpMAedbB5jRdgO3ngRyRa0L6gb8NJNCDBw2k4kULafu2N2jv7n9k1UBNqA01BpHuUJCKvqrblbS+dC3N//NcuqF/P2qfl6d9vC4+djZbBmpCbagRtaLmIPU4MED36tmD1q55iS6X6M+2pQsiakXNqD3dWLL4BwLoNm1a04L5c2XpieN5zhe1QwPHA3sU0Mo2gQB60sTxdP7551vRJatsW4jaoUFWFaVTTNYD3SQ3lwpHjdApPzjT0ABaZHvFWQ909+5XUyiU9WWm5BQaQIuUhpIbZH2n8/LaSd4i59IPghZZD3R67xZ0DiY/RAqCFlkPdEV5hR9YcikHa2GDoEXWA717z146d+6ctc5noTU0gBZZWFpcSVkPNN6utGr1mriig3gDDaBFttee9UCjgYuKl9CJEydxGciB2qFBEIoPBNBffvkl/WHKVPr2W/nekZIuhKgZtUODdGPJ4B8IoNGI3bv30PARo+n99/fgNhADtaJm1B6IgkWRWQu0qC3pwAck/vrW2+n344uopGS99qGKxyoryc74xsXv9ohtJyf4oEbUhhpRK+6ThMjiiUABHe3j1je30QPTZ9FNg4dS7+v62RpqbW00nONnxLabF2pCbajR8cQkCBhIoNPtS+fOnahZs2bphtH1R2zsoWvAC7oKMNC60ugvtGvbVn/RoRUv9nAoVV+FYaBttKNJkyY2vKy5eLGHtYzksGag5egTZ6mvQNwKAx0nB9/IrgADLXsHOf84BRjoODnM3Xjxmggv9jBXrVxWDLSNfp06dcqGlzUXL/awlpEc1gy0jT7hQ8dtuFly8WIPSwlJYsxA22gUfjXt5l+CRWzsYSO1eJcA3jHQNpv+2sZNNj1Tu7kZO/Xuclsw0Db7t2btOjp9+oxNb303xERsfQteMVKAgTZSx2ANb2l6etFiAwt7S4iJ2Pa82YuBToMBvK0Jf4ItjRBxroiFmHGTfGNJAQbaklzJxvdOmUpvv/1u8oLFGcRALItubJ6gQFCBTpAhvduxvxtHG/72qu0g8EUM2wHYsV4BBrpeivQu7ps6jaZNn0XHjlWaDgRb+MDXtBMbGirAQBvKY21xXcl66t2nH90/bSZt276Dvvkm+U25mMMabGALH2u7sLWRAgy0kTo210pLN9C4uybSFd2uoT59+9Ow4aO0gWvMYQ02NsOzm4ECAmi12mCdl9JUoLy8gj7457+0ges0w7G7oQJqtQBa+crQhhdZAWkUUL4SQNPpuHz5hhWQV4HTAPq4vPlz5qxAnALHQ6qqHI2b4htWQFIFwLL4Dl17SNL8OW1WIEGB2kP40xsfJszyLSsgpQKhEH0Yqq4OHZAye046bQWyLQBYDlVWHvlIFPa5GHywAjIr8DlYDtVVoO6sO/O/rICsCtQxrAGtKLRF1jI4b1YACkQZ1oBu1KjRRkzyYAVkVSDKsAb0YfElCnlLDD5YARkVeEsgfBiJa0DjgkhZS/wVUYBPcinwPbv1QOfkKCtFEe59LL0Izgcr4IICtRF2tdD1QItv2WfFzAox+GAFZFJgRYRdLed6oHGnqqGlOPNgBWRRIJHZOKArKg4fUFXlZVmK4TyDrQBYBbOxKsQBjYXaWnoSZx6sgN8VaIjVJKDFrw/3CfKXgutJpAAAAntJREFU6BXD86yAHxQAo2A1MZckoGGgqlUPibPzH9wmgvLBCjigwJkIo0mhGgT62LFjnwvL+8XggxXwowL3RxhNyq1BoGFVXn70OfH7cf5lC8Tg4RsFwCTY1EtIF2g4nDvXuEicy8XggxXwgwLlESZ1czEE+sSJT08qinqHrjcvZLMCvqsNLIJJo8QMgYZjWVnZJiIF36mJv1iBzCmgFNWxaJxBSqDhXl5+ZLGiKHNwzYMV8FoBsAcGzexrCmgEKis7MkOci8XggxXwUoHiCHum9jQNNKKJny4nizNDLUTgwxMFiiPMmd7MEtCIig3wXwCuebACbikAxsCa1fiWgcYGdf8FBPgHRYjAw0UF8AOg9hDX8h62gMYueJAunka5QVzz89RCBD4cUaAcTIEtu9FsA40N8TRKVVXj7opC/BtFCMLDtgJgCCyBKdtBhGNaQAt/whPdZWVHR4rrcWLwC5qECHxYUgDMjANDYMmSZwPGaQMdjSkewD9XW1t9EV7WF53jMytgpABYATNgx8jOyppjQGNTvAKqouLIxJoapbtIlt/5AlF4JCkANsAIWAEzSQZpTDgKNBFpqeCF1yLZQlUNXSUmlovB7yYXIgT8AAPLwQTYACNu6OEK0NFEKyoOHxD/ndyVkxNqTXWvB+EPs6HAfYmeK0VgACyACTcVcBXoaOJ4mzmeihEF9RKFdRRPzUwgUkvFOt5IIE58ZJECoqdqKXqMXqPn6D0Y8KJGT4COLUQUdrisrGxpeXnZsPLyoz8Wj6W6iuJHq6r6OB5bCVv84ez/iPNZAT3/yTkhhL8OFT0RvSH06F30DL1DD9FL9LRc9BY9Rq+9zv3/AAAA//+XmhBJAAAABklEQVQDADzbrMQT+APqAAAAAElFTkSuQmCC">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="OrthoMed">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1c1c1e">
 <style>
   :root{
     --fondo:#0f1720; --panel:#16212e; --panel2:#1d2a3a; --borde:#2b3d52;
@@ -22,8 +28,10 @@
     display:flex; align-items:center; gap:10px; padding:8px 14px;
     background:var(--panel); border-bottom:1px solid var(--borde); flex-wrap:wrap;
   }
-  header h1{font-size:16px; font-weight:600; margin-right:6px; white-space:nowrap;}
-  header h1 span{color:var(--azul);}
+  h1.marca{display:flex; align-items:center; gap:7px; margin-right:6px; white-space:nowrap;}
+  .marca-sim{width:26px; height:26px; flex-shrink:0;}
+  .marca-txt{font-size:18px; font-weight:600; color:var(--texto); letter-spacing:-.02em;}
+  .marca-txt span{font-weight:400;}
   .btn{
     background:var(--panel2); color:var(--texto); border:1px solid var(--borde);
     border-radius:8px; padding:6px 12px; cursor:pointer; font-size:13px; white-space:nowrap;
@@ -115,8 +123,8 @@
 
   #loginGate{position:fixed; inset:0; z-index:10000; background:var(--fondo); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:24px; text-align:center;}
   #loginGate.oculto{display:none;}
-  #loginGate .logo{font-size:32px; font-weight:600;}
-  #loginGate .logo span{color:var(--azul);}
+  #loginGate .logo{font-size:32px; font-weight:600; letter-spacing:-.02em;}
+  #loginGate .logo span{font-weight:400;}
   #loginGate p{color:var(--texto2); font-size:14px; max-width:360px; line-height:1.55;}
   #loginGate .caja{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:center;}
   #loginGate input[type=password]{background:var(--panel); color:var(--texto); border:1px solid var(--borde); border-radius:8px; padding:11px 13px; font-size:15px; width:230px;}
@@ -124,10 +132,30 @@
   #loginGate button:hover{background:var(--azul);}
   #loginGate .err{color:var(--rojo); font-size:13px; min-height:18px;}
   #loginGate label.rec{color:var(--texto2); font-size:12px; display:flex; align-items:center; gap:6px; cursor:pointer;}
+  #loginGate .gate-sim{width:64px; height:64px; margin-bottom:2px;}
+  #loginGate .logo{font-size:30px;}
+
+  /* ---------- Responsivo: celular y tablet ---------- */
+  @media (max-width: 860px){
+    body{ height:auto; overflow:auto; -webkit-text-size-adjust:100%; }
+    header{ padding:7px 10px; gap:6px 8px; position:sticky; top:0; z-index:50; }
+    #hintPegar, .espaciador{ display:none; }   /* tip de pegar y espaciador fuera en móvil */
+    header .ctrl input[type=range]{ width:64px; }
+    #main{ flex-direction:column; min-height:0; }
+    #zonaCanvas{ height:46vh; flex:none; }
+    #cv{ touch-action:none; }
+    #panel{ width:100%; border-left:none; border-top:1px solid var(--borde); overflow-y:visible; }
+    .btn{ padding:7px 11px; font-size:13px; }
+    footer{ position:static; }
+  }
+  @media (min-width: 861px) and (max-width: 1100px){
+    #panel{ width:300px; }                     /* iPad horizontal: panel un poco más angosto */
+  }
 </style>
 </head>
 <body>
 <div id="loginGate">
+  <svg class="gate-sim" viewBox="0 0 64 64" aria-hidden="true"><g fill="#f7f5f2"><rect x="25" y="4" width="14" height="18" rx="7"/><rect x="22.5" y="15" width="19" height="11.5"/><circle cx="22.5" cy="26.5" r="8.5"/><circle cx="41.5" cy="26.5" r="8.5"/><rect x="13" y="40" width="38" height="9" rx="4.5"/><rect x="25" y="44" width="14" height="16" rx="7"/></g><rect x="19" y="36.2" width="26" height="3" rx="1.5" fill="#e8590c"/></svg>
   <div class="logo">Ortho<span>Med</span></div>
   <p>Planeación quirúrgica ortopédica. Acceso privado &mdash; escribe la contraseña que te compartieron.</p>
   <div class="caja">
@@ -140,7 +168,7 @@
 </div>
 
 <header>
-  <h1>Ortho<span>Med</span></h1>
+  <h1 class="marca"><svg class="marca-sim" viewBox="0 0 64 64" aria-hidden="true"><g fill="#f7f5f2"><rect x="25" y="4" width="14" height="18" rx="7"/><rect x="22.5" y="15" width="19" height="11.5"/><circle cx="22.5" cy="26.5" r="8.5"/><circle cx="41.5" cy="26.5" r="8.5"/><rect x="13" y="40" width="38" height="9" rx="4.5"/><rect x="25" y="44" width="14" height="16" rx="7"/></g><rect x="19" y="36.2" width="26" height="3" rx="1.5" fill="#e8590c"/></svg><span class="marca-txt">Ortho<span>Med</span></span></h1>
   <select class="btn" id="region" title="Región / tipo de estudio">
     <option value="rodilla">Rodilla (frente)</option>
     <option value="perfil">Rodilla (perfil / slope)</option>
@@ -148,8 +176,8 @@
   </select>
   <button class="btn primario" id="btnCargar">Cargar radiografía</button>
   <input type="file" id="archivo" accept="image/*" style="display:none">
-  <span class="ctrl">o pega con &#8984;V</span>
-  <span style="flex:1"></span>
+  <span class="ctrl" id="hintPegar">o pega con &#8984;V</span>
+  <span class="espaciador" style="flex:1"></span>
   <span class="ctrl">Brillo <input type="range" id="brillo" min="30" max="220" value="100"></span>
   <span class="ctrl">Contraste <input type="range" id="contraste" min="30" max="250" value="100"></span>
   <button class="btn" id="btnInvertir">Invertir</button>
