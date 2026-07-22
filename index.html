@@ -251,6 +251,21 @@
       <option value="munecaPA">Muñeca (PA / frontal)</option>
       <option value="munecaLat">Muñeca (lateral)</option>
     </optgroup>
+    <optgroup label="Hombro">
+      <option value="hombro">Hombro (AP)</option>
+    </optgroup>
+    <optgroup label="Columna">
+      <option value="columnaAP">Columna (frontal / AP)</option>
+      <option value="columnaLat">Columna (lateral)</option>
+    </optgroup>
+    <optgroup label="Codo">
+      <option value="codoAP">Codo (AP)</option>
+      <option value="codoLat">Codo (lateral)</option>
+    </optgroup>
+    <optgroup label="Tobillo / pie">
+      <option value="tobilloAP">Tobillo (AP / mortaja)</option>
+      <option value="tobilloLat">Calcáneo (lateral)</option>
+    </optgroup>
   </select>
   <button class="btn primario" id="btnCargar">Cargar radiografía</button>
   <input type="file" id="archivo" accept="image/*" style="display:none">
@@ -469,9 +484,93 @@
     <div class="seccion">
       <h2><span class="num">3</span> Mediciones — radio distal (lateral)</h2>
       <table class="medidas" id="tablaMunLat"></table>
-      <div class="nota" style="margin-top:8px">Normal: inclinación palmar (volar tilt) 2–15° volar (~11°). La pérdida o inversión (báscula dorsal) es criterio de reducción en fracturas de radio distal.</div>
+      <div class="nota" style="margin-top:8px">Normal: inclinación palmar (volar tilt) 2–15° volar (~11°). La pérdida o inversión (báscula dorsal) es criterio de reducción en fracturas de radio distal. Escafolunar 30–60°, capitolunar ≤30° (inestabilidad carpiana).</div>
     </div>
    </div><!-- /modoMunecaLat -->
+
+   <div id="modoHombro">
+    <div class="seccion">
+      <h2><span class="num">2</span> Puntos anatómicos</h2>
+      <div id="listaGruposHombro"></div>
+    </div>
+    <div class="seccion">
+      <h2><span class="num">3</span> Mediciones — hombro (AP)</h2>
+      <table class="medidas" id="tablaHombro"></table>
+      <div class="nota" style="margin-top:8px">Ángulo crítico del hombro (CSA) normal 33±3° (&gt;35° se asocia a rotura del manguito; &lt;30° a artrosis). Espacio acromiohumeral (AHI) normal 7–14 mm (&lt;7 sugiere rotura masiva del manguito).</div>
+    </div>
+   </div><!-- /modoHombro -->
+
+   <div id="modoColumnaAP">
+    <div class="seccion">
+      <h2><span class="num">2</span> Puntos anatómicos</h2>
+      <div id="listaGruposColAP"></div>
+    </div>
+    <div class="seccion">
+      <h2><span class="num">3</span> Mediciones — columna frontal</h2>
+      <table class="medidas" id="tablaColAP"></table>
+      <div class="nota" style="margin-top:8px">Ángulo de Cobb entre los platillos de las vértebras terminales. &gt;10° = escoliosis; ≥25° valorar tratamiento; ≥45–50° valorar cirugía.</div>
+    </div>
+   </div><!-- /modoColumnaAP -->
+
+   <div id="modoColumnaLat">
+    <div class="seccion">
+      <h2><span class="num">2</span> Puntos anatómicos</h2>
+      <div id="listaGruposColLat"></div>
+    </div>
+    <div class="seccion">
+      <h2><span class="num">3</span> Mediciones — columna sagital</h2>
+      <table class="medidas" id="tablaColLat"></table>
+      <div class="nota" style="margin-top:8px">Cobb sagital: cifosis torácica (T4–T12) ~20–45°, lordosis lumbar (L1–S1) ~40–60°. Pendiente sacra ~30–50°. Incidencia pélvica ~50°±10 (constante). Tilt pélvico ~11–15°. SVA (equilibrio sagital) &lt;50 mm. Para incidencia/tilt marca los centros femorales; para SVA marca C7 y la esquina de S1.</div>
+    </div>
+   </div><!-- /modoColumnaLat -->
+
+   <div id="modoCodoAP">
+    <div class="seccion">
+      <h2><span class="num">2</span> Puntos anatómicos</h2>
+      <div id="listaGruposCodoAP"></div>
+    </div>
+    <div class="seccion">
+      <h2><span class="num">3</span> Mediciones — codo (AP)</h2>
+      <table class="medidas" id="tablaCodoAP"></table>
+      <div class="nota" style="margin-top:8px">Ángulo de carga normal ~11–14° valgo (5–15°). Ángulo de Baumann ~70–80° (útil en fracturas supracondíleas pediátricas; comparar con el lado sano).</div>
+    </div>
+   </div><!-- /modoCodoAP -->
+
+   <div id="modoCodoLat">
+    <div class="seccion">
+      <h2><span class="num">2</span> Puntos anatómicos</h2>
+      <div id="listaGruposCodoLat"></div>
+    </div>
+    <div class="seccion">
+      <h2><span class="num">3</span> Mediciones — codo (lateral)</h2>
+      <table class="medidas" id="tablaCodoLat"></table>
+      <div class="nota" style="margin-top:8px">La línea humeral anterior debe cruzar el TERCIO MEDIO del capitelio (razón ≤0.33). La línea radiocapitelar debe pasar por el centro del capitelio (razón ≈0; &gt;1 sugiere luxación de la cabeza radial).</div>
+    </div>
+   </div><!-- /modoCodoLat -->
+
+   <div id="modoTobilloAP">
+    <div class="seccion">
+      <h2><span class="num">2</span> Puntos anatómicos</h2>
+      <div id="listaGruposTobAP"></div>
+    </div>
+    <div class="seccion">
+      <h2><span class="num">3</span> Mediciones — tobillo (AP / mortaja)</h2>
+      <table class="medidas" id="tablaTobAP"></table>
+      <div class="nota" style="margin-top:8px">Inclinación talar normal &lt;5° (asimetría del espacio articular = inestabilidad). Espacio claro medial ≤4 mm (&gt;4 sugiere lesión del deltoideo / inestabilidad).</div>
+    </div>
+   </div><!-- /modoTobilloAP -->
+
+   <div id="modoTobilloLat">
+    <div class="seccion">
+      <h2><span class="num">2</span> Puntos anatómicos</h2>
+      <div id="listaGruposTobLat"></div>
+    </div>
+    <div class="seccion">
+      <h2><span class="num">3</span> Mediciones — calcáneo (lateral)</h2>
+      <table class="medidas" id="tablaTobLat"></table>
+      <div class="nota" style="margin-top:8px">Ángulo de Böhler normal 20–40° (disminuye en fracturas de calcáneo con hundimiento). Ángulo de Gissane normal 120–145° (aumenta con el hundimiento de la faceta posterior).</div>
+    </div>
+   </div><!-- /modoTobilloLat -->
 
     <div class="seccion">
       <h2>Notas para el reporte</h2>
@@ -592,8 +691,43 @@ const GRUPOS = [
   {id:'artRadPA',region:'munecaPA', seccion:'munPA', nombre:'Superficie articular del radio', desc:'2 puntos: punta del ESTILOIDES radial y esquina CUBITAL (fosa del semilunar)', pts:['estiloRad','escotSig']},
   {id:'cubitoPA',region:'munecaPA', seccion:'munPA', nombre:'Cabeza del cúbito', desc:'1 punto: superficie articular DISTAL del cúbito', pts:['cabCubito']},
   // --- Muñeca lateral (radio distal) ---
+  {id:'slGapPA', region:'munecaPA', seccion:'munPA', nombre:'Espacio escafolunar', desc:'2 puntos: borde CUBITAL del escafoides y borde RADIAL del semilunar (Terry-Thomas)', pts:['slScaph','slLun']},
   {id:'ejeRadLat',region:'munecaLat',seccion:'munLat',nombre:'Eje del radio', desc:'2 puntos al centro de la diáfisis del radio: PROXIMAL y DISTAL', pts:['radAxLP','radAxLD']},
   {id:'artRadLat',region:'munecaLat',seccion:'munLat',nombre:'Superficie articular (perfil)', desc:'2 puntos: reborde DORSAL y reborde VOLAR (palmar)', pts:['dorsalRim','volarRim']},
+  {id:'ejeEscaf', region:'munecaLat',seccion:'munLat',nombre:'Eje del escafoides', desc:'2 puntos: borde palmar, polo PROXIMAL y DISTAL', pts:['scaphP','scaphD']},
+  {id:'ejeSemi',  region:'munecaLat',seccion:'munLat',nombre:'Semilunar (cuernos)', desc:'2 puntos: cuerno DORSAL y VOLAR (el eje es perpendicular a esa línea)', pts:['lunDorsal','lunVolar']},
+  {id:'ejeGrande',region:'munecaLat',seccion:'munLat',nombre:'Eje del hueso grande', desc:'2 puntos: cabeza del grande y base del 3er metacarpiano (capitolunar)', pts:['capP','capD']},
+  // --- Hombro (AP) ---
+  {id:'glenoides',region:'hombro',   seccion:'homb', nombre:'Glenoides', desc:'2 puntos: borde glenoideo SUPERIOR e INFERIOR', pts:['glenSup','glenInf']},
+  {id:'acromionL',region:'hombro',   seccion:'homb', nombre:'Acromion (lateral)', desc:'1 punto: borde más LATERAL del acromion', pts:['acrLat']},
+  {id:'ahi',      region:'hombro',   seccion:'homb', nombre:'Espacio acromiohumeral', desc:'2 puntos: cara INFERIOR del acromion y cúspide de la CABEZA humeral', pts:['acrUnder','humTop']},
+  // --- Columna frontal / AP (escoliosis) ---
+  {id:'cobbSup', region:'columnaAP', seccion:'colAP', nombre:'Vértebra terminal SUPERIOR', desc:'2 puntos: platillo SUPERIOR de la vértebra más inclinada (arriba)', pts:['apUp1','apUp2']},
+  {id:'cobbInf', region:'columnaAP', seccion:'colAP', nombre:'Vértebra terminal INFERIOR', desc:'2 puntos: platillo INFERIOR de la vértebra más inclinada (abajo)', pts:['apLow1','apLow2']},
+  // --- Columna lateral (sagital) ---
+  {id:'sagSup',  region:'columnaLat',seccion:'colLat',nombre:'Vértebra SUPERIOR del segmento', desc:'2 puntos: platillo de la vértebra superior (p. ej. T4 o L1)', pts:['latUp1','latUp2']},
+  {id:'sagInf',  region:'columnaLat',seccion:'colLat',nombre:'Vértebra INFERIOR del segmento', desc:'2 puntos: platillo de la vértebra inferior (p. ej. T12 o S1)', pts:['latLow1','latLow2']},
+  {id:'sacro',   region:'columnaLat',seccion:'colLat',nombre:'Platillo sacro (S1)', desc:'2 puntos: platillo SUPERIOR del sacro (pendiente sacra)', pts:['sac1','sac2']},
+  {id:'caderasLat',region:'columnaLat',seccion:'colLat',nombre:'Centros femorales', desc:'2 puntos: centro de cada cabeza femoral (eje bicoxofemoral, para incidencia y tilt)', pts:['femHeadA','femHeadB']},
+  {id:'c7plomo', region:'columnaLat',seccion:'colLat',nombre:'C7 (plomada)', desc:'1 punto: centro del cuerpo de C7 (eje vertical sagital, para SVA)', pts:['c7']},
+  {id:'s1corner',region:'columnaLat',seccion:'colLat',nombre:'Esquina posterosuperior de S1', desc:'1 punto: esquina posterosuperior del platillo de S1 (para SVA)', pts:['s1post']},
+  // --- Codo AP ---
+  {id:'ejeHumAP', region:'codoAP',  seccion:'codAP', nombre:'Eje del húmero', desc:'2 puntos: centro de la diáfisis humeral (proximal y distal)', pts:['humAxP','humAxD']},
+  {id:'ejeAnteAP',region:'codoAP',  seccion:'codAP', nombre:'Eje del antebrazo', desc:'2 puntos: centro del antebrazo/cúbito (ángulo de carga)', pts:['foreAxP','foreAxD']},
+  {id:'baumann',  region:'codoAP',  seccion:'codAP', nombre:'Fisis del cóndilo lateral', desc:'2 puntos: a lo largo de la fisis del cóndilo lateral (Baumann)', pts:['baum1','baum2']},
+  // --- Codo lateral ---
+  {id:'capitelio',   region:'codoLat', seccion:'codLat', nombre:'Capitelio', desc:'3 puntos sobre el contorno del capitelio (centro y radio)', pts:['cap1','cap2','cap3']},
+  {id:'lineaHumAnt', region:'codoLat', seccion:'codLat', nombre:'Línea humeral anterior', desc:'2 puntos sobre la cortical ANTERIOR del húmero', pts:['ahl1','ahl2']},
+  {id:'lineaRC',     region:'codoLat', seccion:'codLat', nombre:'Línea radiocapitelar', desc:'2 puntos al centro del cuello del radio', pts:['rcl1','rcl2']},
+  // --- Tobillo AP / mortaja ---
+  {id:'plafond',   region:'tobilloAP', seccion:'tobAP', nombre:'Plafond tibial', desc:'2 puntos: superficie del plafond (medial y lateral)', pts:['plafMed','plafLat']},
+  {id:'domoTalar', region:'tobilloAP', seccion:'tobAP', nombre:'Domo talar', desc:'2 puntos: superficie del domo del astrágalo (medial y lateral)', pts:['domeMed','domeLat']},
+  {id:'espMedial', region:'tobilloAP', seccion:'tobAP', nombre:'Espacio claro medial', desc:'2 puntos: maléolo medial y borde medial del astrágalo', pts:['mcsMal','mcsTal']},
+  // --- Tobillo lateral / calcáneo ---
+  {id:'bohler',  region:'tobilloLat', seccion:'tobLat', nombre:'Ángulo de Böhler', desc:'3 puntos: tuberosidad posterior, faceta posterior (ápice) y proceso anterior', pts:['bohTub','bohFacet','bohAnt']},
+  {id:'gissane', region:'tobilloLat', seccion:'tobLat', nombre:'Ángulo de Gissane', desc:'3 puntos: faceta posterior, ápice (surco) y proceso anterior', pts:['gisPost','gisApex','gisAnt']},
+  // --- Hombro (adición: índice acromial) ---
+  {id:'acromialIdx',region:'hombro', seccion:'homb', nombre:'Borde lateral de la cabeza', desc:'1 punto: borde más LATERAL de la cabeza humeral (índice acromial)', pts:['humLat']},
 ];
 const NOMBRE_PT = {
   cal1:'marcador — extremo 1', cal2:'marcador — extremo 2',
@@ -622,6 +756,31 @@ const NOMBRE_PT = {
   cabCubito:'superficie articular DISTAL de la cabeza del cúbito',
   radAxLP:'centro de la diáfisis del radio — PROXIMAL (perfil)', radAxLD:'centro de la diáfisis del radio — DISTAL (perfil)',
   dorsalRim:'reborde DORSAL de la superficie articular del radio', volarRim:'reborde VOLAR/palmar de la superficie articular del radio',
+  slScaph:'borde CUBITAL del escafoides (espacio escafolunar)', slLun:'borde RADIAL del semilunar (espacio escafolunar)',
+  scaphP:'escafoides — polo PROXIMAL (borde palmar)', scaphD:'escafoides — polo DISTAL (borde palmar)',
+  lunDorsal:'semilunar — cuerno DORSAL', lunVolar:'semilunar — cuerno VOLAR',
+  capP:'hueso grande — cabeza (proximal)', capD:'base del 3er metacarpiano (distal)',
+  glenSup:'borde glenoideo SUPERIOR', glenInf:'borde glenoideo INFERIOR',
+  acrLat:'borde más LATERAL del acromion', acrUnder:'cara INFERIOR del acromion', humTop:'cúspide de la cabeza humeral',
+  apUp1:'platillo superior — extremo 1', apUp2:'platillo superior — extremo 2',
+  apLow1:'platillo inferior — extremo 1', apLow2:'platillo inferior — extremo 2',
+  latUp1:'platillo vértebra superior — extremo 1', latUp2:'platillo vértebra superior — extremo 2',
+  latLow1:'platillo vértebra inferior — extremo 1', latLow2:'platillo vértebra inferior — extremo 2',
+  sac1:'platillo sacro S1 — extremo 1', sac2:'platillo sacro S1 — extremo 2',
+  femHeadA:'centro de la cabeza femoral (1)', femHeadB:'centro de la cabeza femoral (2)',
+  c7:'centro del cuerpo de C7 (plomada)', s1post:'esquina posterosuperior de S1',
+  humAxP:'eje del húmero — PROXIMAL', humAxD:'eje del húmero — DISTAL',
+  foreAxP:'eje del antebrazo — PROXIMAL', foreAxD:'eje del antebrazo — DISTAL',
+  baum1:'fisis del cóndilo lateral — extremo 1', baum2:'fisis del cóndilo lateral — extremo 2',
+  cap1:'contorno del capitelio (1/3)', cap2:'contorno del capitelio (2/3)', cap3:'contorno del capitelio (3/3)',
+  ahl1:'cortical anterior del húmero — proximal', ahl2:'cortical anterior del húmero — distal',
+  rcl1:'centro del cuello del radio — proximal', rcl2:'centro del cuello del radio — distal',
+  plafMed:'plafond tibial — MEDIAL', plafLat:'plafond tibial — LATERAL',
+  domeMed:'domo talar — MEDIAL', domeLat:'domo talar — LATERAL',
+  mcsMal:'maléolo medial (borde articular)', mcsTal:'astrágalo — borde medial',
+  bohTub:'tuberosidad posterior del calcáneo', bohFacet:'faceta posterior (ápice, Böhler)', bohAnt:'proceso anterior del calcáneo',
+  gisPost:'faceta posterior (Gissane)', gisApex:'ápice / surco (Gissane)', gisAnt:'proceso anterior (Gissane)',
+  humLat:'borde LATERAL de la cabeza humeral',
 };
 
 // ---------- Utilería geométrica ----------
@@ -967,6 +1126,92 @@ function medidas(){
     // Sentido: si el reborde VOLAR queda más distal que el dorsal → inclinación VOLAR (normal)
     m.volarSentido = dot(sub(P.volarRim, P.dorsalRim), u) >= 0 ? 'volar' : 'dorsal';
   }
+  // Espacio escafolunar (PA, Terry-Thomas): normal ≤2 mm
+  if (P.slScaph && P.slLun && m.mmpp) m.slGap = dist(P.slScaph, P.slLun) * m.mmpp;
+  // Ángulos escafolunar y capitolunar (lateral)
+  if (P.scaphP && P.scaphD && P.lunDorsal && P.lunVolar){
+    const scaphAxis = norm(sub(P.scaphD, P.scaphP));
+    const hornLine = norm(sub(P.lunVolar, P.lunDorsal));
+    m.lunAxis = {x:-hornLine.y, y:hornLine.x};             // eje del semilunar ⟂ a la línea de los cuernos
+    m.lunMid = mid(P.lunDorsal, P.lunVolar);
+    let sl = angVec(scaphAxis, m.lunAxis); if (sl > 90) sl = 180 - sl;
+    m.slAngle = sl;                                        // normal 30–60° (>60 DISI, <30 VISI)
+    if (P.capP && P.capD){
+      const capAxis = norm(sub(P.capD, P.capP));
+      let cl = angVec(capAxis, m.lunAxis); if (cl > 90) cl = 180 - cl;
+      m.clAngle = cl;                                      // normal ≤30°
+    }
+  }
+
+  // --- Hombro (AP) ---
+  if (P.glenSup && P.glenInf && P.acrLat)
+    m.csa = angEn(P.glenInf, P.glenSup, P.acrLat);         // ángulo crítico del hombro, normal 30–35°
+  if (P.acrUnder && P.humTop && m.mmpp)
+    m.ahi = dist(P.acrUnder, P.humTop) * m.mmpp;           // espacio acromiohumeral, normal 7–14 mm
+  // Índice acromial = distancia glenoides→acromion / glenoides→cabeza (⟂ al plano glenoideo)
+  if (P.glenSup && P.glenInf && P.acrLat && P.humLat){
+    const gh = distRecta(P.humLat, P.glenSup, P.glenInf);
+    if (gh > 1) m.acromialIdx = distRecta(P.acrLat, P.glenSup, P.glenInf) / gh;   // normal ~0.60–0.75
+  }
+
+  // --- Columna: ángulo de Cobb (frontal y sagital) ---
+  const cobb = (a1,a2,b1,b2)=>{
+    if (!(a1&&a2&&b1&&b2)) return null;
+    let c = angVec(norm(sub(a2,a1)), norm(sub(b2,b1)));
+    return c > 90 ? 180 - c : c;
+  };
+  m.cobbAP  = cobb(P.apUp1, P.apUp2, P.apLow1, P.apLow2);   // escoliosis, >10° patológico
+  m.cobbLat = cobb(P.latUp1, P.latUp2, P.latLow1, P.latLow2); // cifosis / lordosis
+  if (P.sac1 && P.sac2){
+    const d = sub(P.sac2, P.sac1);
+    let ss = Math.abs(Math.atan2(d.y, d.x) * DEG);
+    m.sacralSlope = ss > 90 ? 180 - ss : ss;               // pendiente sacra vs horizontal, normal ~40°
+    // Parámetros espinopélvicos (necesitan centros femorales)
+    if (P.femHeadA && P.femHeadB){
+      const hip = mid(P.femHeadA, P.femHeadB), sMid = mid(P.sac1, P.sac2);
+      const sDir = norm(d), sPerp = {x:-sDir.y, y:sDir.x};
+      let pi = angVec(sPerp, norm(sub(hip, sMid))); if (pi > 90) pi = 180 - pi;
+      m.pelvicInc = pi;                                     // incidencia pélvica, normal ~50° (±10)
+      let pt = angVec({x:0,y:-1}, norm(sub(sMid, hip))); if (pt > 90) pt = 180 - pt;
+      m.pelvicTilt = pt;                                    // tilt pélvico, normal ~11–15°
+    }
+    // SVA: distancia horizontal de la plomada de C7 a la esquina posterosuperior de S1
+    if (P.c7 && P.s1post && m.mmpp) m.sva = Math.abs(P.c7.x - P.s1post.x) * m.mmpp;   // normal <50 mm
+  }
+
+  // --- Codo AP: ángulo de carga y ángulo de Baumann ---
+  if (P.humAxP && P.humAxD){
+    const hAx = norm(sub(P.humAxD, P.humAxP));
+    if (P.foreAxP && P.foreAxD){
+      let ca = angVec(hAx, norm(sub(P.foreAxD, P.foreAxP))); if (ca > 90) ca = 180 - ca;
+      m.carrying = ca;                                      // ángulo de carga, normal ~11–14° valgo
+    }
+    if (P.baum1 && P.baum2){
+      let ba = angVec(hAx, norm(sub(P.baum2, P.baum1))); if (ba > 90) ba = 180 - ba;
+      m.baumann = ba;                                       // Baumann, normal ~70–80°
+    }
+  }
+
+  // --- Codo lateral: capitelio, línea humeral anterior y radiocapitelar ---
+  m.capit = (P.cap1 && P.cap2 && P.cap3) ? circulo3(P.cap1, P.cap2, P.cap3) : null;
+  if (m.capit){
+    if (P.ahl1 && P.ahl2) m.ahlRatio = distRecta(m.capit, P.ahl1, P.ahl2) / m.capit.r;  // ≤1/3 = tercio medio (normal)
+    if (P.rcl1 && P.rcl2) m.rclRatio = distRecta(m.capit, P.rcl1, P.rcl2) / m.capit.r;  // ~0 = alineado (>1 luxación)
+  }
+
+  // --- Tobillo AP / mortaja ---
+  if (P.plafMed && P.plafLat && P.domeMed && P.domeLat){
+    let tt = angVec(norm(sub(P.plafLat, P.plafMed)), norm(sub(P.domeLat, P.domeMed)));
+    if (tt > 90) tt = 180 - tt;
+    m.talarTilt = tt;                                       // inclinación talar, normal <5°
+  }
+  if (P.mcsMal && P.mcsTal && m.mmpp) m.mcs = dist(P.mcsMal, P.mcsTal) * m.mmpp;   // espacio claro medial, normal ≤4 mm
+
+  // --- Tobillo lateral / calcáneo ---
+  if (P.bohTub && P.bohFacet && P.bohAnt)
+    m.bohler = 180 - angEn(P.bohFacet, P.bohTub, P.bohAnt); // Böhler, normal 20–40°
+  if (P.gisPost && P.gisApex && P.gisAnt)
+    m.gissane = angEn(P.gisApex, P.gisPost, P.gisAnt);      // Gissane, normal 120–145°
 
   return m;
 }
@@ -1013,6 +1258,17 @@ const COLOR = {
   hingeS:'--rojo', wedgeS:'--naranja',
   radAxP:'--cian', radAxD:'--cian', estiloRad:'--magenta', escotSig:'--verde', cabCubito:'--naranja',
   radAxLP:'--cian', radAxLD:'--cian', dorsalRim:'--magenta', volarRim:'--naranja',
+  slScaph:'--lila', slLun:'--lila',
+  scaphP:'--lima', scaphD:'--lima', lunDorsal:'--lila', lunVolar:'--lila', capP:'--amarillo', capD:'--amarillo',
+  glenSup:'--cian', glenInf:'--cian', acrLat:'--naranja', acrUnder:'--magenta', humTop:'--verde',
+  apUp1:'--cian', apUp2:'--cian', apLow1:'--naranja', apLow2:'--naranja',
+  latUp1:'--cian', latUp2:'--cian', latLow1:'--naranja', latLow2:'--naranja', sac1:'--verde', sac2:'--verde',
+  femHeadA:'--magenta', femHeadB:'--magenta', c7:'--lila', s1post:'--lima',
+  humAxP:'--cian', humAxD:'--cian', foreAxP:'--naranja', foreAxD:'--naranja', baum1:'--verde', baum2:'--verde',
+  cap1:'--cian', cap2:'--cian', cap3:'--cian', ahl1:'--naranja', ahl2:'--naranja', rcl1:'--verde', rcl2:'--verde',
+  plafMed:'--cian', plafLat:'--cian', domeMed:'--naranja', domeLat:'--naranja', mcsMal:'--verde', mcsTal:'--verde',
+  bohTub:'--cian', bohFacet:'--naranja', bohAnt:'--cian', gisPost:'--verde', gisApex:'--magenta', gisAnt:'--verde',
+  humLat:'--lima',
 };
 const PTS_REGION = {};   // id de punto -> región a la que pertenece
 for (const g of GRUPOS) for (const id of g.pts) PTS_REGION[id] = g.region;
@@ -1121,6 +1377,10 @@ function dibujar(){
       if (m.radialAltura!=null && P.cabCubito){ ctx.fillStyle = css('--naranja'); ctx.fillText(`altura ${m.radialAltura.toFixed(1)} mm`, P.cabCubito.x + 10/s, P.cabCubito.y + 18/s); }
       if (m.varCubital!=null && P.escotSig){ ctx.fillStyle = css('--verde'); ctx.fillText(`var ${m.varCubital>0?'+':''}${m.varCubital.toFixed(1)} mm`, P.escotSig.x + 10/s, P.escotSig.y - 8/s); }
     }
+    if (P.slScaph && P.slLun){                       // espacio escafolunar
+      linea(P.slScaph, P.slLun, '--lila');
+      if (m.slGap!=null){ ctx.fillStyle = css('--lila'); const c = mid(P.slScaph, P.slLun); ctx.fillText(`SL ${m.slGap.toFixed(1)} mm`, c.x + 8/s, c.y + 16/s); }
+    }
     for (const id in P){
       if (PTS_REGION[id] !== 'munecaPA' && PTS_REGION[id] !== 'ambas') continue;
       punto(P[id], COLOR[id] || '--cian', {estiloRad:'est', escotSig:'esq', cabCubito:'cúb'}[id] ?? '');
@@ -1140,9 +1400,138 @@ function dibujar(){
         if (m.volarTilt!=null){ ctx.fillStyle = css('--magenta'); ctx.fillText(`${m.volarTilt.toFixed(0)}° ${m.volarSentido}`, c.x + 10/s, c.y - 10/s); }
       }
     }
+    // Ejes carpianos (inestabilidad): escafoides, semilunar (⟂ cuernos) y grande
+    if (P.scaphP && P.scaphD) lineaExt(P.scaphP, P.scaphD, '--lima', false, 25);
+    if (P.lunDorsal && P.lunVolar){
+      linea(P.lunDorsal, P.lunVolar, '--lila', true);                  // línea de los cuernos
+      if (m.lunAxis && m.lunMid) linea(add(m.lunMid, mul(m.lunAxis,-45)), add(m.lunMid, mul(m.lunAxis,45)), '--lila');   // eje del semilunar
+    }
+    if (P.capP && P.capD) lineaExt(P.capP, P.capD, '--amarillo', false, 25);
+    if (m.slAngle!=null && m.lunMid){ ctx.fillStyle = css('--lima'); ctx.fillText(`SL ${m.slAngle.toFixed(0)}°`, m.lunMid.x + 12/s, m.lunMid.y - 12/s); }
+    if (m.clAngle!=null && m.lunMid){ ctx.fillStyle = css('--amarillo'); ctx.fillText(`CL ${m.clAngle.toFixed(0)}°`, m.lunMid.x + 12/s, m.lunMid.y + 20/s); }
     for (const id in P){
       if (PTS_REGION[id] !== 'munecaLat' && PTS_REGION[id] !== 'ambas') continue;
-      punto(P[id], COLOR[id] || '--cian', {dorsalRim:'dorsal', volarRim:'volar'}[id] ?? '');
+      punto(P[id], COLOR[id] || '--cian', {dorsalRim:'dorsal', volarRim:'volar', scaphP:'esc', scaphD:'esc', capP:'grande'}[id] ?? '');
+    }
+    return;
+  }
+
+  if (state.region === 'hombro'){
+    if (P.glenSup && P.glenInf){
+      linea(P.glenSup, P.glenInf, '--cian');                          // línea glenoidea
+      if (P.acrLat){
+        linea(P.glenInf, P.acrLat, '--naranja');                     // borde inferior glenoides → acromion lateral
+        if (m.csa!=null){ ctx.fillStyle = css('--naranja'); ctx.fillText(`CSA ${m.csa.toFixed(0)}°`, P.glenInf.x + 10/s, P.glenInf.y + 6/s); }
+      }
+    }
+    if (P.acrUnder && P.humTop){
+      linea(P.acrUnder, P.humTop, '--verde');                        // espacio acromiohumeral
+      if (m.ahi!=null){ ctx.fillStyle = css('--verde'); const c = mid(P.acrUnder, P.humTop); ctx.fillText(`AHI ${m.ahi.toFixed(1)} mm`, c.x + 10/s, c.y); }
+    }
+    if (m.acromialIdx!=null && P.humLat){ ctx.fillStyle = css('--lima'); ctx.fillText(`IA ${m.acromialIdx.toFixed(2)}`, P.humLat.x + 8/s, P.humLat.y + 6/s); }
+    for (const id in P){
+      if (PTS_REGION[id] !== 'hombro' && PTS_REGION[id] !== 'ambas') continue;
+      punto(P[id], COLOR[id] || '--cian', {acrLat:'acromion', humTop:'cabeza', humLat:'lat'}[id] ?? '');
+    }
+    return;
+  }
+
+  if (state.region === 'columnaAP' || state.region === 'columnaLat'){
+    const esAP = state.region === 'columnaAP';
+    const U1 = esAP?P.apUp1:P.latUp1, U2 = esAP?P.apUp2:P.latUp2, L1 = esAP?P.apLow1:P.latLow1, L2 = esAP?P.apLow2:P.latLow2;
+    const cobb = esAP ? m.cobbAP : m.cobbLat;
+    if (U1 && U2) lineaExt(U1, U2, '--cian', false, 60);
+    if (L1 && L2) lineaExt(L1, L2, '--naranja', false, 60);
+    if (cobb!=null && U1 && U2 && L1 && L2){
+      const c = mid(mid(U1,U2), mid(L1,L2));
+      ctx.fillStyle = css('--magenta'); ctx.fillText(`Cobb ${cobb.toFixed(0)}°`, c.x + 12/s, c.y);
+    }
+    if (!esAP && P.sac1 && P.sac2){
+      lineaExt(P.sac1, P.sac2, '--verde', false, 40);
+      const c = mid(P.sac1, P.sac2);
+      linea(c, add(c, {x:60, y:0}), '--cian', true);                 // referencia horizontal
+      if (m.sacralSlope!=null){ ctx.fillStyle = css('--verde'); ctx.fillText(`SS ${m.sacralSlope.toFixed(0)}°`, c.x + 12/s, c.y + 16/s); }
+      // Parámetros espinopélvicos
+      if (P.femHeadA && P.femHeadB){
+        const hip = mid(P.femHeadA, P.femHeadB);
+        linea(P.femHeadA, P.femHeadB, '--magenta', true);            // eje bicoxofemoral
+        linea(hip, c, '--lila');                                     // hip → centro sacro (para PI/PT)
+        if (m.pelvicInc!=null){ ctx.fillStyle = css('--lila'); ctx.fillText(`PI ${m.pelvicInc.toFixed(0)}° · PT ${m.pelvicTilt.toFixed(0)}°`, hip.x + 12/s, hip.y); }
+      }
+      if (P.c7 && P.s1post){
+        lineaExt(P.c7, {x:P.c7.x, y:P.s1post.y}, '--lima', true, 20);   // plomada vertical de C7
+        linea({x:P.c7.x, y:P.s1post.y}, P.s1post, '--lima');           // desviación horizontal a S1
+        if (m.sva!=null){ ctx.fillStyle = css('--lima'); ctx.fillText(`SVA ${m.sva.toFixed(0)} mm`, P.s1post.x + 10/s, P.s1post.y); }
+      }
+    }
+    for (const id in P){
+      if (PTS_REGION[id] !== state.region && PTS_REGION[id] !== 'ambas') continue;
+      punto(P[id], COLOR[id] || '--cian', {sac1:'S1', sac2:'', c7:'C7', s1post:'S1p'}[id] ?? '');
+    }
+    return;
+  }
+
+  if (state.region === 'codoAP'){
+    if (P.humAxP && P.humAxD) lineaExt(P.humAxP, P.humAxD, '--cian', false, 30);
+    if (P.foreAxP && P.foreAxD) lineaExt(P.foreAxP, P.foreAxD, '--naranja', false, 30);
+    if (P.baum1 && P.baum2) lineaExt(P.baum1, P.baum2, '--verde', false, 20);
+    if (m.carrying!=null && P.foreAxP){ ctx.fillStyle = css('--naranja'); ctx.fillText(`carga ${m.carrying.toFixed(0)}°`, P.foreAxP.x + 10/s, P.foreAxP.y); }
+    if (m.baumann!=null && P.baum1){ ctx.fillStyle = css('--verde'); ctx.fillText(`Baumann ${m.baumann.toFixed(0)}°`, P.baum1.x + 8/s, P.baum1.y - 8/s); }
+    for (const id in P){
+      if (PTS_REGION[id] !== 'codoAP' && PTS_REGION[id] !== 'ambas') continue;
+      punto(P[id], COLOR[id] || '--cian', '');
+    }
+    return;
+  }
+
+  if (state.region === 'codoLat'){
+    if (m.capit){
+      ctx.strokeStyle = css('--cian'); ctx.setLineDash([6/s,5/s]);
+      ctx.beginPath(); ctx.arc(m.capit.x, m.capit.y, m.capit.r, 0, 7); ctx.stroke();
+      ctx.setLineDash([]); punto(m.capit, '--cian');
+    }
+    if (P.ahl1 && P.ahl2){
+      lineaExt(P.ahl1, P.ahl2, '--naranja', false, 60);
+      if (m.ahlRatio!=null){ ctx.fillStyle = css('--naranja'); ctx.fillText(`LHA ${m.ahlRatio.toFixed(2)}`, P.ahl2.x + 8/s, P.ahl2.y); }
+    }
+    if (P.rcl1 && P.rcl2){
+      lineaExt(P.rcl1, P.rcl2, '--verde', false, 60);
+      if (m.rclRatio!=null){ ctx.fillStyle = css('--verde'); ctx.fillText(`RC ${m.rclRatio.toFixed(2)}`, P.rcl1.x + 8/s, P.rcl1.y + 14/s); }
+    }
+    for (const id in P){
+      if (PTS_REGION[id] !== 'codoLat' && PTS_REGION[id] !== 'ambas') continue;
+      punto(P[id], COLOR[id] || '--cian', '');
+    }
+    return;
+  }
+
+  if (state.region === 'tobilloAP'){
+    if (P.plafMed && P.plafLat) lineaExt(P.plafMed, P.plafLat, '--cian', false, 25);
+    if (P.domeMed && P.domeLat) lineaExt(P.domeMed, P.domeLat, '--naranja', false, 25);
+    if (m.talarTilt!=null && P.domeLat){ ctx.fillStyle = css('--naranja'); ctx.fillText(`tilt ${m.talarTilt.toFixed(1)}°`, P.domeLat.x + 10/s, P.domeLat.y + 14/s); }
+    if (P.mcsMal && P.mcsTal){
+      linea(P.mcsMal, P.mcsTal, '--verde');
+      if (m.mcs!=null){ ctx.fillStyle = css('--verde'); const c = mid(P.mcsMal, P.mcsTal); ctx.fillText(`ECM ${m.mcs.toFixed(1)} mm`, c.x + 8/s, c.y); }
+    }
+    for (const id in P){
+      if (PTS_REGION[id] !== 'tobilloAP' && PTS_REGION[id] !== 'ambas') continue;
+      punto(P[id], COLOR[id] || '--cian', '');
+    }
+    return;
+  }
+
+  if (state.region === 'tobilloLat'){
+    if (P.bohTub && P.bohFacet && P.bohAnt){
+      linea(P.bohTub, P.bohFacet, '--cian'); linea(P.bohFacet, P.bohAnt, '--cian');
+      if (m.bohler!=null){ ctx.fillStyle = css('--cian'); ctx.fillText(`Böhler ${m.bohler.toFixed(0)}°`, P.bohFacet.x + 8/s, P.bohFacet.y - 8/s); }
+    }
+    if (P.gisPost && P.gisApex && P.gisAnt){
+      linea(P.gisPost, P.gisApex, '--verde'); linea(P.gisApex, P.gisAnt, '--verde');
+      if (m.gissane!=null){ ctx.fillStyle = css('--verde'); ctx.fillText(`Gissane ${m.gissane.toFixed(0)}°`, P.gisApex.x + 8/s, P.gisApex.y + 14/s); }
+    }
+    for (const id in P){
+      if (PTS_REGION[id] !== 'tobilloLat' && PTS_REGION[id] !== 'ambas') continue;
+      punto(P[id], COLOR[id] || '--cian', '');
     }
     return;
   }
@@ -1430,8 +1819,91 @@ const SVG_MUN_LAT = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 27
     <circle cx="118" cy="118" r="6" fill="#ec407a"/><circle cx="82" cy="110" r="6" fill="#ffa726"/>
   </g>
 </svg>`;
+const SVG_HOMBRO = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260">
+  <rect width="220" height="260" fill="#12171d"/>
+  <path d="M30 60 L96 96 Q74 150 96 198 L30 236 Z" fill="#cfd6dd"/>
+  <circle cx="142" cy="150" r="46" fill="#e7ecf1"/><rect x="122" y="188" width="42" height="72" fill="#e7ecf1"/>
+  <path d="M62 90 L170 74 L174 92 L96 110 Z" fill="#b9c2cb"/>
+  <g font-family="sans-serif" font-size="11" fill="#9fb0c0"><text x="40" y="150">glenoides</text><text x="126" y="150">húmero</text></g>
+  <g stroke="#0a0e12" stroke-width="1.2">
+    <circle cx="96" cy="106" r="6" fill="#29b6f6"/><circle cx="98" cy="196" r="6" fill="#29b6f6"/>
+    <circle cx="168" cy="78" r="6" fill="#ffa726"/><circle cx="120" cy="100" r="6" fill="#ec407a"/><circle cx="142" cy="110" r="6" fill="#66bb6a"/>
+  </g>
+</svg>`;
+const SVG_COL_AP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+  <rect width="200" height="300" fill="#12171d"/>
+  <path d="M100 45 Q138 120 100 175 Q64 235 100 285" fill="none" stroke="#5b6672" stroke-width="10" stroke-linecap="round"/>
+  <line x1="70" y1="54" x2="118" y2="40" stroke="#29b6f6" stroke-width="3"/>
+  <line x1="82" y1="292" x2="130" y2="278" stroke="#ffa726" stroke-width="3"/>
+  <g font-family="sans-serif" font-size="11" fill="#9fb0c0"><text x="120" y="160">Cobb</text></g>
+  <g stroke="#0a0e12" stroke-width="1.2">
+    <circle cx="70" cy="54" r="6" fill="#29b6f6"/><circle cx="118" cy="40" r="6" fill="#29b6f6"/>
+    <circle cx="82" cy="292" r="6" fill="#ffa726"/><circle cx="130" cy="278" r="6" fill="#ffa726"/>
+  </g>
+</svg>`;
+const SVG_COL_LAT = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+  <rect width="200" height="300" fill="#12171d"/>
+  <path d="M88 45 Q150 130 108 225 Q100 250 128 285" fill="none" stroke="#5b6672" stroke-width="10" stroke-linecap="round"/>
+  <line x1="66" y1="54" x2="108" y2="48" stroke="#29b6f6" stroke-width="3"/>
+  <line x1="96" y1="238" x2="138" y2="232" stroke="#ffa726" stroke-width="3"/>
+  <line x1="112" y1="286" x2="152" y2="276" stroke="#66bb6a" stroke-width="3"/>
+  <g font-family="sans-serif" font-size="11" fill="#9fb0c0"><text x="140" y="150">sagital</text><text x="150" y="270">sacro</text></g>
+  <g stroke="#0a0e12" stroke-width="1.2">
+    <circle cx="66" cy="54" r="6" fill="#29b6f6"/><circle cx="108" cy="48" r="6" fill="#29b6f6"/>
+    <circle cx="96" cy="238" r="6" fill="#ffa726"/><circle cx="138" cy="232" r="6" fill="#ffa726"/>
+    <circle cx="112" cy="286" r="6" fill="#66bb6a"/><circle cx="152" cy="276" r="6" fill="#66bb6a"/>
+  </g>
+</svg>`;
+const SVG_CODO_AP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+  <rect width="200" height="300" fill="#12171d"/>
+  <path d="M84 20 L82 130 Q70 150 60 150 L140 150 Q130 150 118 130 L116 20 Z" fill="#cfd6dd"/>
+  <path d="M78 158 L60 292 L74 292 L92 168 Z" fill="#e7ecf1"/>
+  <path d="M122 158 L140 292 L126 292 L108 168 Z" fill="#e7ecf1"/>
+  <g font-family="sans-serif" font-size="11" fill="#9fb0c0"><text x="86" y="90">húmero</text></g>
+  <g stroke="#0a0e12" stroke-width="1.2">
+    <circle cx="100" cy="50" r="6" fill="#29b6f6"/><circle cx="100" cy="130" r="6" fill="#29b6f6"/>
+    <circle cx="98" cy="200" r="6" fill="#ffa726"/><circle cx="92" cy="280" r="6" fill="#ffa726"/>
+    <circle cx="120" cy="150" r="6" fill="#66bb6a"/><circle cx="146" cy="146" r="6" fill="#66bb6a"/>
+  </g>
+</svg>`;
+const SVG_CODO_LAT = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+  <rect width="200" height="300" fill="#12171d"/>
+  <path d="M70 20 L70 150 Q70 175 100 180 L100 20 Z" fill="#cfd6dd"/>
+  <circle cx="112" cy="175" r="30" fill="#e7ecf1"/>
+  <path d="M118 205 L122 292 L138 292 L134 200 Z" fill="#e7ecf1"/>
+  <g font-family="sans-serif" font-size="11" fill="#9fb0c0"><text x="40" y="90">húmero</text><text x="140" y="180">capitelio</text></g>
+  <g stroke="#0a0e12" stroke-width="1.2">
+    <circle cx="90" cy="150" r="5" fill="#29b6f6"/><circle cx="112" cy="146" r="5" fill="#29b6f6"/><circle cx="126" cy="185" r="5" fill="#29b6f6"/>
+    <circle cx="70" cy="60" r="6" fill="#ffa726"/><circle cx="70" cy="140" r="6" fill="#ffa726"/>
+    <circle cx="128" cy="215" r="6" fill="#66bb6a"/><circle cx="132" cy="270" r="6" fill="#66bb6a"/>
+  </g>
+</svg>`;
+const SVG_TOB_AP = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260">
+  <rect width="200" height="260" fill="#12171d"/>
+  <path d="M70 10 L66 150 L118 150 L114 10 Z" fill="#cfd6dd"/>
+  <path d="M128 30 L126 140 Q126 152 138 152 L150 152 L146 30 Z" fill="#cfd6dd"/>
+  <path d="M62 168 Q100 200 150 172 L150 210 Q100 230 62 208 Z" fill="#e7ecf1"/>
+  <g font-family="sans-serif" font-size="11" fill="#9fb0c0"><text x="76" y="90">tibia</text><text x="130" y="90">peroné</text><text x="86" y="196">astrág.</text></g>
+  <g stroke="#0a0e12" stroke-width="1.2">
+    <circle cx="76" cy="152" r="6" fill="#29b6f6"/><circle cx="116" cy="150" r="6" fill="#29b6f6"/>
+    <circle cx="78" cy="170" r="6" fill="#ffa726"/><circle cx="140" cy="172" r="6" fill="#ffa726"/>
+    <circle cx="70" cy="158" r="6" fill="#66bb6a"/><circle cx="80" cy="176" r="6" fill="#66bb6a"/>
+  </g>
+</svg>`;
+const SVG_TOB_LAT = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200">
+  <rect width="240" height="200" fill="#12171d"/>
+  <path d="M40 150 Q40 120 70 110 L150 92 Q190 90 205 108 Q195 130 150 138 L120 150 Q80 168 40 150 Z" fill="#e7ecf1"/>
+  <g font-family="sans-serif" font-size="11" fill="#9fb0c0"><text x="90" y="130">calcáneo</text></g>
+  <g stroke="#0a0e12" stroke-width="1.2">
+    <circle cx="52" cy="120" r="6" fill="#29b6f6"/><circle cx="150" cy="94" r="6" fill="#ffa726"/><circle cx="200" cy="110" r="6" fill="#29b6f6"/>
+    <circle cx="150" cy="96" r="4" fill="#66bb6a"/><circle cx="120" cy="118" r="6" fill="#e05fb0"/><circle cx="196" cy="112" r="4" fill="#66bb6a"/>
+  </g>
+</svg>`;
 const IMG_REGION = {rodilla: IMG_PIERNA, perfil: IMG_RODLAT, cadera: IMG_PELVIS,
-  munecaPA: svgURI(SVG_MUN_PA), munecaLat: svgURI(SVG_MUN_LAT)};
+  munecaPA: svgURI(SVG_MUN_PA), munecaLat: svgURI(SVG_MUN_LAT),
+  hombro: svgURI(SVG_HOMBRO), columnaAP: svgURI(SVG_COL_AP), columnaLat: svgURI(SVG_COL_LAT),
+  codoAP: svgURI(SVG_CODO_AP), codoLat: svgURI(SVG_CODO_LAT),
+  tobilloAP: svgURI(SVG_TOB_AP), tobilloLat: svgURI(SVG_TOB_LAT)};
 // Leyenda por región: color del punto en la radiografía → estructura (grupo).
 // Al colocar un grupo se ilumina su fila.
 const LEYENDA = {
@@ -1463,10 +1935,51 @@ const LEYENDA = {
     {g:'ejeRadPA', c:'#29b6f6', t:'Eje del radio — al centro de la diáfisis (azul)'},
     {g:'artRadPA', c:'#ec407a', t:'Estiloides radial (rosa) + esquina cubital (verde)'},
     {g:'cubitoPA', c:'#ffa726', t:'Cabeza del cúbito — punto más distal (naranja)'},
+    {g:'slGapPA',  c:'#b388ff', t:'Espacio escafolunar (lila) — escafoides y semilunar', nota:true},
   ],
   munecaLat: [
     {g:'ejeRadLat',c:'#29b6f6', t:'Eje del radio — al centro de la diáfisis (azul)'},
     {g:'artRadLat',c:'#ec407a', t:'Reborde dorsal (rosa) + reborde volar/palmar (naranja)'},
+    {g:'ejeEscaf', c:'#c6ff00', t:'Eje del escafoides (lima)', nota:true},
+    {g:'ejeSemi',  c:'#b388ff', t:'Cuernos del semilunar → eje ⟂ (lila)', nota:true},
+    {g:'ejeGrande',c:'#ffd23f', t:'Eje del hueso grande (amarillo)', nota:true},
+  ],
+  hombro: [
+    {g:'glenoides',c:'#29b6f6', t:'Glenoides — borde superior e inferior (azul)'},
+    {g:'acromionL',c:'#ffa726', t:'Acromion — borde más lateral (naranja)'},
+    {g:'ahi',      c:'#66bb6a', t:'Acromion inferior (rosa) + cabeza humeral (verde)'},
+    {g:'acromialIdx',c:'#c6ff00', t:'Borde lateral de la cabeza (lima) — índice acromial', nota:true},
+  ],
+  columnaAP: [
+    {g:'cobbSup',  c:'#29b6f6', t:'Platillo vértebra terminal superior (azul)'},
+    {g:'cobbInf',  c:'#ffa726', t:'Platillo vértebra terminal inferior (naranja)'},
+  ],
+  columnaLat: [
+    {g:'sagSup',   c:'#29b6f6', t:'Platillo vértebra superior (azul)'},
+    {g:'sagInf',   c:'#ffa726', t:'Platillo vértebra inferior (naranja)'},
+    {g:'sacro',    c:'#66bb6a', t:'Platillo sacro S1 (verde)'},
+    {g:'caderasLat',c:'#e05fb0', t:'Centros femorales (magenta) — incidencia/tilt', nota:true},
+    {g:'c7plomo',  c:'#c6ff00', t:'C7 plomada (lima) — para SVA', nota:true},
+    {g:'s1corner', c:'#c6ff00', t:'Esquina posterosuperior de S1 (lima) — para SVA', nota:true},
+  ],
+  codoAP: [
+    {g:'ejeHumAP', c:'#29b6f6', t:'Eje del húmero (azul)'},
+    {g:'ejeAnteAP',c:'#ffa726', t:'Eje del antebrazo (naranja) — ángulo de carga'},
+    {g:'baumann',  c:'#66bb6a', t:'Fisis del cóndilo lateral (verde) — Baumann'},
+  ],
+  codoLat: [
+    {g:'capitelio',   c:'#29b6f6', t:'Capitelio — 3 puntos del contorno (azul)'},
+    {g:'lineaHumAnt', c:'#ffa726', t:'Cortical anterior del húmero (naranja)'},
+    {g:'lineaRC',     c:'#66bb6a', t:'Cuello del radio (verde) — línea radiocapitelar'},
+  ],
+  tobilloAP: [
+    {g:'plafond',   c:'#29b6f6', t:'Plafond tibial (azul)'},
+    {g:'domoTalar', c:'#ffa726', t:'Domo talar (naranja) — inclinación talar'},
+    {g:'espMedial', c:'#66bb6a', t:'Maléolo medial + astrágalo (verde) — espacio claro'},
+  ],
+  tobilloLat: [
+    {g:'bohler',  c:'#29b6f6', t:'Böhler: tuberosidad + faceta + proceso anterior (azul)'},
+    {g:'gissane', c:'#66bb6a', t:'Gissane: faceta + ápice + proceso anterior (verde)'},
   ],
 };
 let esquemaRegion = null;
@@ -1496,6 +2009,13 @@ function aplicarRegion(r){
   document.getElementById('modoPerfil').style.display   = r === 'perfil'    ? '' : 'none';
   document.getElementById('modoMunecaPA').style.display = r === 'munecaPA'  ? '' : 'none';
   document.getElementById('modoMunecaLat').style.display= r === 'munecaLat' ? '' : 'none';
+  document.getElementById('modoHombro').style.display    = r === 'hombro'     ? '' : 'none';
+  document.getElementById('modoColumnaAP').style.display = r === 'columnaAP'  ? '' : 'none';
+  document.getElementById('modoColumnaLat').style.display= r === 'columnaLat' ? '' : 'none';
+  document.getElementById('modoCodoAP').style.display    = r === 'codoAP'     ? '' : 'none';
+  document.getElementById('modoCodoLat').style.display   = r === 'codoLat'    ? '' : 'none';
+  document.getElementById('modoTobilloAP').style.display = r === 'tobilloAP'  ? '' : 'none';
+  document.getElementById('modoTobilloLat').style.display= r === 'tobilloLat' ? '' : 'none';
   state.colocando = null;
   avisoColocacion(); refrescarPanel();
 }
@@ -1515,7 +2035,9 @@ function refrescarPanel(){
     const n = g.pts.filter(id=>P[id]).length;
     const cont = document.getElementById(
       {cal:'fila-cal', anat:'listaGrupos', hto:'fila-hto', ptr:'fila-ptr', cad:'listaGruposCad', perf:'listaGruposPerf',
-       munPA:'listaGruposMunPA', munLat:'listaGruposMunLat'}[g.seccion]);
+       munPA:'listaGruposMunPA', munLat:'listaGruposMunLat', homb:'listaGruposHombro',
+       colAP:'listaGruposColAP', colLat:'listaGruposColLat',
+       codAP:'listaGruposCodoAP', codLat:'listaGruposCodoLat', tobAP:'listaGruposTobAP', tobLat:'listaGruposTobLat'}[g.seccion]);
     let el = document.getElementById('g-'+g.id);
     if (!el){
       el = document.createElement('div');
@@ -1654,15 +2176,81 @@ function refrescarPanel(){
     <tr><td>Altura / longitud radial <span class="nota">normal 10–13 mm</span></td>
         <td class="${m.radialAltura==null?'':tono(m.radialAltura,10,13)}">${m.radialAltura!=null ? fmt(m.radialAltura,1,' mm') : (m.mmpp?'—':'calibra')}</td></tr>
     <tr><td>Varianza cubital <span class="nota">normal −2 a +2 mm</span></td>
-        <td class="${m.varCubital==null?'':(Math.abs(m.varCubital)<=2?'valor-ok':'valor-alerta')}">${varTxt}</td></tr>`;
+        <td class="${m.varCubital==null?'':(Math.abs(m.varCubital)<=2?'valor-ok':'valor-alerta')}">${varTxt}</td></tr>
+    <tr><td>Espacio escafolunar <span class="nota">normal ≤2 mm (Terry-Thomas)</span></td>
+        <td class="${m.slGap==null?'':(m.slGap<=2?'valor-ok':'valor-alerta')}">${m.slGap!=null ? fmt(m.slGap,1,' mm') : (m.mmpp?'—':'calibra')}</td></tr>`;
 
-  // Tabla muñeca lateral (inclinación palmar)
+  // Tabla muñeca lateral (inclinación palmar + inestabilidad carpiana)
   const okVolar = m.volarTilt!=null && m.volarSentido==='volar' && m.volarTilt>=2 && m.volarTilt<=15;
   const tiltTxt = m.volarTilt==null ? '—'
     : fmt(m.volarTilt,1,'°') + ' ' + (m.volarSentido==='volar' ? 'volar' : 'DORSAL');
+  const slTxt = m.slAngle==null ? '—' : fmt(m.slAngle,0,'°') + (m.slAngle>60?' (DISI)':(m.slAngle<30?' (VISI)':''));
   document.getElementById('tablaMunLat').innerHTML = `
     <tr><td>Inclinación palmar (volar tilt) <span class="nota">normal 2–15° volar (~11°)</span></td>
-        <td class="${m.volarTilt==null?'':(okVolar?'valor-ok':'valor-alerta')}">${tiltTxt}</td></tr>`;
+        <td class="${m.volarTilt==null?'':(okVolar?'valor-ok':'valor-alerta')}">${tiltTxt}</td></tr>
+    <tr><td>Ángulo escafolunar <span class="nota">normal 30–60°</span></td>
+        <td class="${m.slAngle==null?'':tono(m.slAngle,30,60)}">${slTxt}</td></tr>
+    <tr><td>Ángulo capitolunar <span class="nota">normal ≤30°</span></td>
+        <td class="${m.clAngle==null?'':(m.clAngle<=30?'valor-ok':'valor-alerta')}">${fmt(m.clAngle,0,'°')}</td></tr>`;
+
+  // Tabla hombro (AP)
+  document.getElementById('tablaHombro').innerHTML = `
+    <tr><td>Ángulo crítico (CSA) <span class="nota">normal 30–35°</span></td>
+        <td class="${m.csa==null?'':tono(m.csa,30,35)}">${fmt(m.csa,1,'°')}</td></tr>
+    <tr><td>Espacio acromiohumeral (AHI) <span class="nota">normal 7–14 mm</span></td>
+        <td class="${m.ahi==null?'':tono(m.ahi,7,14)}">${m.ahi!=null ? fmt(m.ahi,1,' mm') : (m.mmpp?'—':'calibra')}</td></tr>
+    <tr><td>Índice acromial <span class="nota">normal ~0.60–0.75</span></td>
+        <td class="${m.acromialIdx==null?'':(m.acromialIdx<=0.75?'valor-ok':'valor-alerta')}">${fmt(m.acromialIdx,2)}</td></tr>`;
+
+  // Tabla columna frontal (Cobb / escoliosis)
+  const cobbAPtxt = m.cobbAP==null ? '—' : fmt(m.cobbAP,1,'°') + (m.cobbAP>10 ? ' (escoliosis)' : '');
+  document.getElementById('tablaColAP').innerHTML = `
+    <tr><td>Ángulo de Cobb <span class="nota">&gt;10° = escoliosis</span></td>
+        <td class="${m.cobbAP==null?'':(m.cobbAP<=10?'valor-ok':'valor-alerta')}">${cobbAPtxt}</td></tr>`;
+
+  // Tabla columna sagital (Cobb + espinopélvicos)
+  const svaTxt = m.sva==null ? (m.mmpp?'—':'calibra') : fmt(m.sva,0,' mm') + ' (' + fmt(m.sva/10,1,' cm') + ')';
+  document.getElementById('tablaColLat').innerHTML = `
+    <tr><td>Cobb sagital <span class="nota">cifosis ~20–45° · lordosis ~40–60°</span></td>
+        <td>${fmt(m.cobbLat,1,'°')}</td></tr>
+    <tr><td>Pendiente sacra (SS) <span class="nota">normal ~30–50°</span></td>
+        <td class="${m.sacralSlope==null?'':tono(m.sacralSlope,30,50)}">${fmt(m.sacralSlope,1,'°')}</td></tr>
+    <tr><td>Incidencia pélvica (PI) <span class="nota">normal ~40–60°</span></td>
+        <td class="${m.pelvicInc==null?'':tono(m.pelvicInc,40,60)}">${fmt(m.pelvicInc,1,'°')}</td></tr>
+    <tr><td>Tilt pélvico (PT) <span class="nota">normal ~11–15°</span></td>
+        <td class="${m.pelvicTilt==null?'':(m.pelvicTilt<=20?'valor-ok':'valor-alerta')}">${fmt(m.pelvicTilt,1,'°')}</td></tr>
+    <tr><td>SVA <span class="nota">equilibrio sagital, &lt;50 mm</span></td>
+        <td class="${m.sva==null?'':(m.sva<=50?'valor-ok':'valor-alerta')}">${svaTxt}</td></tr>`;
+
+  // Tabla codo AP (ángulo de carga + Baumann)
+  document.getElementById('tablaCodoAP').innerHTML = `
+    <tr><td>Ángulo de carga <span class="nota">normal ~11–14° valgo</span></td>
+        <td class="${m.carrying==null?'':tono(m.carrying,5,15)}">${fmt(m.carrying,1,'°')}</td></tr>
+    <tr><td>Ángulo de Baumann <span class="nota">normal ~70–80°</span></td>
+        <td class="${m.baumann==null?'':tono(m.baumann,70,80)}">${fmt(m.baumann,1,'°')}</td></tr>`;
+
+  // Tabla codo lateral (línea humeral anterior + radiocapitelar)
+  const ahlTxt = m.ahlRatio==null ? '—' : fmt(m.ahlRatio,2) + (m.ahlRatio<=0.34 ? ' (tercio medio)' : ' (fuera)');
+  const rclTxt = m.rclRatio==null ? '—' : fmt(m.rclRatio,2) + (m.rclRatio<=1 ? ' (alineada)' : ' (luxación?)');
+  document.getElementById('tablaCodoLat').innerHTML = `
+    <tr><td>Línea humeral anterior <span class="nota">razón al centro / radio; ≤0.33 = tercio medio</span></td>
+        <td class="${m.ahlRatio==null?'':(m.ahlRatio<=0.34?'valor-ok':'valor-alerta')}">${ahlTxt}</td></tr>
+    <tr><td>Línea radiocapitelar <span class="nota">≈0 alineada; &gt;1 luxación</span></td>
+        <td class="${m.rclRatio==null?'':(m.rclRatio<=1?'valor-ok':'valor-alerta')}">${rclTxt}</td></tr>`;
+
+  // Tabla tobillo AP (tilt talar + espacio claro medial)
+  document.getElementById('tablaTobAP').innerHTML = `
+    <tr><td>Inclinación talar <span class="nota">normal &lt;5°</span></td>
+        <td class="${m.talarTilt==null?'':(m.talarTilt<5?'valor-ok':'valor-alerta')}">${fmt(m.talarTilt,1,'°')}</td></tr>
+    <tr><td>Espacio claro medial <span class="nota">normal ≤4 mm</span></td>
+        <td class="${m.mcs==null?'':(m.mcs<=4?'valor-ok':'valor-alerta')}">${m.mcs!=null ? fmt(m.mcs,1,' mm') : (m.mmpp?'—':'calibra')}</td></tr>`;
+
+  // Tabla calcáneo lateral (Böhler + Gissane)
+  document.getElementById('tablaTobLat').innerHTML = `
+    <tr><td>Ángulo de Böhler <span class="nota">normal 20–40°</span></td>
+        <td class="${m.bohler==null?'':tono(m.bohler,20,40)}">${fmt(m.bohler,1,'°')}</td></tr>
+    <tr><td>Ángulo de Gissane <span class="nota">normal 120–145°</span></td>
+        <td class="${m.gissane==null?'':tono(m.gissane,120,145)}">${fmt(m.gissane,1,'°')}</td></tr>`;
 
   document.getElementById('chkSim').disabled = !(m.alfaRad && P.entrada);
   actualizarEsquema();
@@ -1948,18 +2536,29 @@ const PARTES = {
     {r:'rodilla', t:'Frente (AP)', d:'Alineación (HKA), osteotomía HTO/DFO, prótesis (PTR)'},
     {r:'perfil',  t:'Perfil / lateral', d:'Slope tibial y osteotomía de cierre anterior'}]},
   muneca:  {nombre:'Muñeca',  vistas:[
-    {r:'munecaPA',  t:'PA / frontal', d:'Inclinación radial, altura radial, varianza cubital'},
-    {r:'munecaLat', t:'Lateral', d:'Inclinación palmar (volar tilt)'}]},
+    {r:'munecaPA',  t:'PA / frontal', d:'Inclinación radial, altura, varianza, espacio escafolunar'},
+    {r:'munecaLat', t:'Lateral', d:'Volar tilt, ángulos escafolunar y capitolunar'}]},
+  hombro:  {nombre:'Hombro',  vistas:[
+    {r:'hombro',    t:'AP', d:'Ángulo crítico (CSA) y espacio acromiohumeral (AHI)'}]},
+  columna: {nombre:'Columna', vistas:[
+    {r:'columnaAP', t:'Frontal (AP)', d:'Ángulo de Cobb (escoliosis)'},
+    {r:'columnaLat',t:'Lateral', d:'Cobb sagital, pendiente sacra, incidencia/tilt, SVA'}]},
+  codo:    {nombre:'Codo',    vistas:[
+    {r:'codoAP',    t:'AP', d:'Ángulo de carga y ángulo de Baumann'},
+    {r:'codoLat',   t:'Lateral', d:'Línea humeral anterior y radiocapitelar'}]},
+  tobillo: {nombre:'Tobillo / pie', vistas:[
+    {r:'tobilloAP', t:'AP / mortaja', d:'Inclinación talar, espacio claro medial'},
+    {r:'tobilloLat',t:'Calcáneo (lateral)', d:'Ángulos de Böhler y Gissane'}]},
 };
 // Puntos calientes sobre la figura (cx,cy en el viewBox 200x440). parte = clave de PARTES; sin parte = próximamente.
 const HOTSPOTS = [
-  {cx:72, cy:120, parte:null,      lbl:'Hombro'},   {cx:128,cy:120, parte:null,      lbl:'Hombro'},
-  {cx:100,cy:150, parte:null,      lbl:'Columna'},
-  {cx:52, cy:176, parte:null,      lbl:'Codo'},     {cx:148,cy:176, parte:null,      lbl:'Codo'},
+  {cx:72, cy:120, parte:'hombro',  lbl:'Hombro'},   {cx:128,cy:120, parte:'hombro',  lbl:'Hombro'},
+  {cx:100,cy:150, parte:'columna', lbl:'Columna'},
+  {cx:52, cy:176, parte:'codo',    lbl:'Codo'},     {cx:148,cy:176, parte:'codo',    lbl:'Codo'},
   {cx:42, cy:232, parte:'muneca',  lbl:'Muñeca'},   {cx:158,cy:232, parte:'muneca',  lbl:'Muñeca'},
   {cx:86, cy:248, parte:'cadera',  lbl:'Cadera'},   {cx:114,cy:248, parte:'cadera',  lbl:'Cadera'},
   {cx:88, cy:330, parte:'rodilla', lbl:'Rodilla'},  {cx:112,cy:330, parte:'rodilla', lbl:'Rodilla'},
-  {cx:88, cy:410, parte:null,      lbl:'Tobillo'},  {cx:112,cy:410, parte:null,      lbl:'Tobillo'},
+  {cx:88, cy:410, parte:'tobillo', lbl:'Tobillo'},  {cx:112,cy:410, parte:'tobillo', lbl:'Tobillo'},
 ];
 (function initMapa(){
   const svgNS = 'http://www.w3.org/2000/svg';
@@ -1987,7 +2586,8 @@ function elegirParte(clave, gEl){
 }
 function abrirMapa(){
   // preselecciona la parte de la región activa
-  const claveActual = state.region==='cadera'?'cadera':(state.region==='rodilla'||state.region==='perfil')?'rodilla':(state.region.indexOf('muneca')===0?'muneca':null);
+  const REG2PARTE = {cadera:'cadera', rodilla:'rodilla', perfil:'rodilla', munecaPA:'muneca', munecaLat:'muneca', hombro:'hombro', columnaAP:'columna', columnaLat:'columna', codoAP:'codo', codoLat:'codo', tobilloAP:'tobillo', tobilloLat:'tobillo'};
+  const claveActual = REG2PARTE[state.region] || null;
   document.getElementById('mapaOpciones').innerHTML = '<p class="mapaHint">Toca una articulación resaltada del esquema.</p>';
   document.querySelectorAll('#figura .hs').forEach(el=>el.classList.remove('sel'));
   document.getElementById('mapaCuerpo').classList.add('abierto');
@@ -2127,7 +2727,7 @@ document.getElementById('btnExportar').onclick = ()=>{
     c.fillText(t, x, y); y += fs*1.55;
   };
   const F = (v,d,s2)=> (v==null||isNaN(v)) ? '—' : v.toFixed(d)+(s2||'');
-  const titReg = ({cadera:'prótesis de cadera '+state.ladoCadera, perfil:'slope tibial', munecaPA:'muñeca (PA)', munecaLat:'muñeca (lateral)'})[state.region] || 'rodilla';
+  const titReg = ({cadera:'prótesis de cadera '+state.ladoCadera, perfil:'slope tibial', munecaPA:'muñeca (PA)', munecaLat:'muñeca (lateral)', hombro:'hombro (AP)', columnaAP:'columna (frontal)', columnaLat:'columna (lateral)', codoAP:'codo (AP)', codoLat:'codo (lateral)', tobilloAP:'tobillo (AP)', tobilloLat:'calcáneo (lateral)'})[state.region] || 'rodilla';
   linea(`OrthoMed — Plan de ${titReg}`, '#3da5f4', true);
   linea(new Date().toLocaleString('es-MX'), '#93a7bd');
   const notas = document.getElementById('notas').value.trim();
@@ -2174,6 +2774,39 @@ document.getElementById('btnExportar').onclick = ()=>{
     linea('— Muñeca · radio distal (lateral) —', '#93a7bd', true);
     const tt = m.volarTilt!=null ? F(m.volarTilt,1,'°')+' '+(m.volarSentido==='volar'?'volar':'DORSAL') : '—';
     linea(`Inclinación palmar (volar tilt): ${tt}  (normal 2–15° volar)`);
+    const sl = m.slAngle!=null ? F(m.slAngle,0,'°')+(m.slAngle>60?' DISI':(m.slAngle<30?' VISI':'')) : '—';
+    linea(`Ángulo escafolunar: ${sl}  (normal 30–60°)`);
+    linea(`Ángulo capitolunar: ${F(m.clAngle,0,'°')}  (normal ≤30°)`);
+  } else if (state.region === 'hombro'){
+    linea('— Hombro (AP) —', '#93a7bd', true);
+    linea(`Ángulo crítico del hombro (CSA): ${F(m.csa,1,'°')}  (normal 30–35°)`);
+    linea(`Espacio acromiohumeral (AHI): ${m.ahi!=null?F(m.ahi,1,' mm'):'—'}  (normal 7–14 mm)`);
+    linea(`Índice acromial: ${F(m.acromialIdx,2)}  (normal ~0.60–0.75)`);
+  } else if (state.region === 'columnaAP'){
+    linea('— Columna frontal (escoliosis) —', '#93a7bd', true);
+    linea(`Ángulo de Cobb: ${F(m.cobbAP,1,'°')}${m.cobbAP>10?' (escoliosis)':''}  (>10° patológico)`);
+  } else if (state.region === 'columnaLat'){
+    linea('— Columna lateral (sagital) —', '#93a7bd', true);
+    linea(`Cobb sagital: ${F(m.cobbLat,1,'°')}  (cifosis ~20–45° / lordosis ~40–60°)`);
+    linea(`Pendiente sacra (SS): ${F(m.sacralSlope,1,'°')}  (normal ~30–50°)`);
+    linea(`Incidencia pélvica (PI): ${F(m.pelvicInc,1,'°')}   Tilt pélvico (PT): ${F(m.pelvicTilt,1,'°')}`);
+    linea(`SVA: ${m.sva!=null?F(m.sva,0,' mm'):'—'}  (equilibrio sagital, <50 mm)`);
+  } else if (state.region === 'codoAP'){
+    linea('— Codo (AP) —', '#93a7bd', true);
+    linea(`Ángulo de carga: ${F(m.carrying,1,'°')}  (normal ~11–14° valgo)`);
+    linea(`Ángulo de Baumann: ${F(m.baumann,1,'°')}  (normal ~70–80°)`);
+  } else if (state.region === 'codoLat'){
+    linea('— Codo (lateral) —', '#93a7bd', true);
+    linea(`Línea humeral anterior: ${F(m.ahlRatio,2)}  (≤0.33 = tercio medio del capitelio)`);
+    linea(`Línea radiocapitelar: ${F(m.rclRatio,2)}  (≈0 alineada; >1 luxación)`);
+  } else if (state.region === 'tobilloAP'){
+    linea('— Tobillo (AP / mortaja) —', '#93a7bd', true);
+    linea(`Inclinación talar: ${F(m.talarTilt,1,'°')}  (normal <5°)`);
+    linea(`Espacio claro medial: ${m.mcs!=null?F(m.mcs,1,' mm'):'—'}  (normal ≤4 mm)`);
+  } else if (state.region === 'tobilloLat'){
+    linea('— Calcáneo (lateral) —', '#93a7bd', true);
+    linea(`Ángulo de Böhler: ${F(m.bohler,1,'°')}  (normal 20–40°)`);
+    linea(`Ángulo de Gissane: ${F(m.gissane,1,'°')}  (normal 120–145°)`);
   } else {
     linea('— Alineación —', '#93a7bd', true);
     linea(`HKA: ${F(m.hkaDesv,1,'°')} ${m.tipo||''}`);
